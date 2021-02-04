@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<artifactId>todolist</artifactId>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<artifactId>lombok</artifactId>
+							<groupId>org.projectlombok</groupId>
+						</exclude>
+					</excludes>
+				</configuration>
+				<groupId>org.springframework.boot</groupId>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<groupId>org.springframework.boot</groupId>
+		</dependency>
+		<dependency>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
+			<groupId>org.springframework.boot</groupId>
+		</dependency>
+		<dependency>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<groupId>org.springframework.boot</groupId>
+		</dependency>
+		<dependency>
+			<artifactId>liquibase-core</artifactId>
+			<groupId>org.liquibase</groupId>
+		</dependency>
+
+		<dependency>
+			<artifactId>postgresql</artifactId>
+			<groupId>org.postgresql</groupId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<artifactId>lombok</artifactId>
+			<groupId>org.projectlombok</groupId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<description>Simple To-Do List for learning Spring basics</description>
+	<groupId>com.epam.starbun</groupId>
+	<modelVersion>4.0.0</modelVersion>
+	<modules>
+		<module>todolist-impl</module>
+		<module>todolist-db</module>
+		<module>todolist-domain</module>
+		<module>todolist-api</module>
+	</modules>
+	<name>todolist</name>
+	<packaging>pom</packaging>
+	<parent>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<groupId>org.springframework.boot</groupId>
+		<relativePath/>
+		<version>2.4.2</version> <!-- lookup parent from repository -->
+	</parent>
+	<properties>
+		<java.version>11</java.version>
+	</properties>
+
+	<version>0.0.1-SNAPSHOT</version>
+
+</project>

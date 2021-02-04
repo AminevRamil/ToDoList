@@ -1,0 +1,9 @@
+spring:
+  liquibase:
+    enabled: false
+  datasource:
+    platform: postgres
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/todolist
+    username: postgres
+    password: postgres
