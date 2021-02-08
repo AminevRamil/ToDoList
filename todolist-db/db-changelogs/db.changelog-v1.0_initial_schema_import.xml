@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create-user-table-08-02-2021" author="Aminev Ramil">
+        <createTable tableName="user" schemaName="public">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nickname" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="timestamptz" defaultValueDate="current_timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-note-table-08-02-2021" author="Aminev Ramil">
+        <createTable tableName="note" schemaName="public">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="body" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="timestamptz" defaultValueDate="current_timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-attachment-table-08-02-2021" author="Aminev Ramil">
+        <createTable tableName="attachment" schemaName="public">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="note_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="filename" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar"> <!-- ЕНАМ ИЛИ СТРИНГ -->
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="timestamptz" defaultValueDate="current_timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-user-note-table-08-02-2021" author="Aminev Ramil">
+        <createTable tableName="item">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="note_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="setup-foreign-keys-08-02-2021" author="Aminev Ramil">
+        <addForeignKeyConstraint baseColumnNames="note_id"
+                                 baseTableName="attachment"
+                                 constraintName="attachment_order_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="attachment"/>
+        <addForeignKeyConstraint baseColumnNames="note_id"
+                                 baseTableName="user_note"
+                                 constraintName="user_note_note_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="note"/>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="user_note"
+                                 constraintName="user_note_user_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
+</databaseChangeLog>
+
