@@ -39,6 +39,9 @@
             <column name="body" type="varchar">
                 <constraints nullable="false"/>
             </column>
+            <column name="end_date" type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
             <column name="creation_date" type="timestamptz" defaultValueDate="current_timestamptz">
                 <constraints nullable="false"/>
             </column>
@@ -72,7 +75,7 @@
     </changeSet>
 
     <changeSet id="create-user-note-table-08-02-2021" author="Aminev Ramil">
-        <createTable tableName="item">
+        <createTable tableName="user_note">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
