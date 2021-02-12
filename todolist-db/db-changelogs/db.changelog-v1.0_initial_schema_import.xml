@@ -62,7 +62,10 @@
             <column name="filename" type="varchar">
                 <constraints nullable="false"/>
             </column>
-            <column name="type" type="varchar"> <!-- ЕНАМ ИЛИ СТРИНГ -->
+            <column name="blob" type="mediumblob">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar">
                 <constraints nullable="false"/>
             </column>
             <column name="creation_date" type="timestamptz" defaultValueDate="current_timestamptz">
