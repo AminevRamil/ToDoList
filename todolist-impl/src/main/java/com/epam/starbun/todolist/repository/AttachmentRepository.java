@@ -1,11 +1,11 @@
-package com.epam.starbun.todolist.domain.repository;
+package com.epam.starbun.todolist.repository;
 
 import com.epam.starbun.todolist.domain.Attachment;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,13 +17,10 @@ import java.util.UUID;
 
 @Slf4j
 @Repository
+@RequiredArgsConstructor
 public class AttachmentRepository implements CommonRepository<Attachment> {
 
-    private final EntityManager entityManager = Persistence
-            .createEntityManagerFactory("supplier-pu")
-            .createEntityManager();
-
-    private final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    private final EntityManager entityManager;
 
     @Override
     public Optional<Attachment> findById(UUID id) {
@@ -40,6 +37,7 @@ public class AttachmentRepository implements CommonRepository<Attachment> {
     public List<Attachment> findAll() {
         try {
             log.debug("Finding all Attachment entities in repository");
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
             CriteriaQuery<Attachment> query = cb.createQuery(Attachment.class);
             Root<Attachment> c = query.from(Attachment.class);
             query.select(c);

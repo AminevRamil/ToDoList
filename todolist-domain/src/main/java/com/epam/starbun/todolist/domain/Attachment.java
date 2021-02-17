@@ -14,10 +14,6 @@ public class Attachment {
     @Id
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "note_id")
-    private Note note;
-
     private String filename;
 
     @Lob

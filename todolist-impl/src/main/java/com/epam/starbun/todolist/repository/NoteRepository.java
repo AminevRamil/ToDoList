@@ -1,11 +1,11 @@
-package com.epam.starbun.todolist.domain.repository;
+package com.epam.starbun.todolist.repository;
 
 import com.epam.starbun.todolist.domain.Note;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,12 +17,10 @@ import java.util.UUID;
 
 @Slf4j
 @Repository
+@RequiredArgsConstructor
 public class NoteRepository implements CommonRepository<Note> {
-    private final EntityManager entityManager = Persistence
-            .createEntityManagerFactory("supplier-pu")
-            .createEntityManager();
 
-    private final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    private final EntityManager entityManager;
 
     @Override
     public Optional<Note> findById(UUID id) {
@@ -39,6 +37,7 @@ public class NoteRepository implements CommonRepository<Note> {
     public List<Note> findAll() {
         try {
             log.debug("Finding all Note entities in repository");
+            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
             CriteriaQuery<Note> query = cb.createQuery(Note.class);
             Root<Note> c = query.from(Note.class);
             query.select(c);

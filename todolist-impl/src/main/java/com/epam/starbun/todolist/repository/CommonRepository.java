@@ -1,8 +1,10 @@
-package com.epam.starbun.todolist.domain.repository;
+package com.epam.starbun.todolist.repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+//public interface CommonRepository<T> extends CrudRepository<T, UUID>  ??
 
 public interface CommonRepository<T> {
 

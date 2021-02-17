@@ -7,3 +7,5 @@ spring:
     url: jdbc:postgresql://localhost:5432/todolist
     username: postgres
     password: postgres
+spring.freemarker.template-loader-path: classpath:/templates
+spring.freemarker.suffix: .ftl

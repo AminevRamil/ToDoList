@@ -15,8 +15,9 @@ public class Note {
     @Id
     private UUID id;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachment")
-    private List<Attachment> attachments;
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Attachment.class)
+    @JoinColumn(name = "note_id")
+    private List<Attachment> attachmentList;
 
     @OneToMany(targetEntity = User.class, orphanRemoval = true)
     @JoinTable(name = "user_note",
