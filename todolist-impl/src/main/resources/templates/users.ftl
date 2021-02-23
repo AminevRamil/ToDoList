@@ -1,4 +1,4 @@
-<#import "users.ftl" as ui/>
+<#import "ui.ftl" as ui/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,10 +10,11 @@
 
 <div>
     <fieldset>
-        <legend>Добавить лицо</legend>
+        <legend>Добавить пользователя</legend>
         <form name="user" action="save" method="POST">
-            <@ui.formInput id="t1" name="firstName" label="Имя"/> <br/>
-            <@ui.formInput id="t2" name="age" label="Возраст"/> <br/>
+            <@ui.formInput id="t1" name="nickname" label="Никнейкм"/> <br/>
+            <@ui.formInput id="t2" name="email" label="Е-почта"/> <br/>
+            <@ui.formInput id="t3" name="password" label="Пароль"/> <br/>
             <input type="submit" value="Save" />
         </form>
     </fieldset>
@@ -23,7 +24,7 @@
     <fieldset>
         <legend>Поиск</legend>
         <form name="searchForm" action="search" method="POST">
-            <@ui.formInput id="t3" name="searchName" label="Поиск"/> <br/>
+        <@ui.formInput id="t4" name="searchName" label="Поиск"/> <br/>
             <input type="submit" value="Search" />
         </form>
     </fieldset>

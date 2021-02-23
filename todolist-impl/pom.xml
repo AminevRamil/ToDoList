@@ -10,6 +10,12 @@
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <artifactId>todolist-api</artifactId>
+            <groupId>com.epam.starbun</groupId>
+            <scope>compile</scope>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <modelVersion>4.0.0</modelVersion>
 

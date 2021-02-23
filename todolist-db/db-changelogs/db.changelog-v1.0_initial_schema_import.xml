@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="create-user-table-08-02-2021" author="Aminev Ramil">
-        <createTable tableName="user" schemaName="public">
+    <changeSet author="Aminev Ramil" id="create-users-table-08-02-2021">
+        <createTable schemaName="public" tableName="users">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -77,8 +77,8 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="create-user-note-table-08-02-2021" author="Aminev Ramil">
-        <createTable tableName="user_note">
+    <changeSet author="Aminev Ramil" id="create-users-note-table-08-02-2021">
+        <createTable tableName="users_note">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -98,15 +98,15 @@
                                  referencedColumnNames="id"
                                  referencedTableName="attachment"/>
         <addForeignKeyConstraint baseColumnNames="note_id"
-                                 baseTableName="user_note"
-                                 constraintName="user_note_note_id_fkey"
-                                 referencedColumnNames="id"
-                                 referencedTableName="note"/>
+            baseTableName="users_note"
+            constraintName="users_note_note_id_fkey"
+            referencedColumnNames="id"
+            referencedTableName="note"/>
         <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="user_note"
-                                 constraintName="user_note_user_id_fkey"
-                                 referencedColumnNames="id"
-                                 referencedTableName="user"/>
+            baseTableName="users_note"
+            constraintName="users_note_user_id_fkey"
+            referencedColumnNames="id"
+            referencedTableName="users"/>
     </changeSet>
 </databaseChangeLog>
 
