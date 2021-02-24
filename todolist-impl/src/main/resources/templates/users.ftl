@@ -31,7 +31,20 @@
 </div>
 <p><#if lastSearch??>Поиск для: ${lastSearch}<#else></#if></p>
 
-<@ui.table id="table1" rows=users![]/>
+<div>
+  <table border="1">
+    <tr>
+      <th>nickname</th>
+      <th>email</th>
+    </tr>
+    <#list users as user>
+      <tr>
+        <td>${user.nickname}</td>
+        <td>${user.email}</td>
+      </tr>
+    </#list>
+  </table>
+</div>
 
 </body>
 </html>

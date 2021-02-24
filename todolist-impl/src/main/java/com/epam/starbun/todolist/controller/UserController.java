@@ -31,8 +31,8 @@ public class UserController {
 
   @GetMapping("/")
   public String index(Model model) {
-//    List<User> users = userRepository.findAll();
-//    model.addAttribute("users", users);
+    List<User> users = userRepository.findAll();
+    model.addAttribute("users", users);
     return "users";
   }
 
@@ -52,8 +52,8 @@ public class UserController {
     user.setId(UUID.randomUUID());
     user.setCreationDate(OffsetDateTime.now());
     userRepository.save(user);
-//    List<User> users = userRepository.findAll();
-//    model.addAttribute("users", users);
+    List<User> users = userRepository.findAll();
+    model.addAttribute("users", users);
     return "users";
   }
 }
