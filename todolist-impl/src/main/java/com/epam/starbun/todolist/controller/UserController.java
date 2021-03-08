@@ -3,18 +3,17 @@ package com.epam.starbun.todolist.controller;
 
 import com.epam.starbun.todolist.domain.User;
 import com.epam.starbun.todolist.repository.UserRepository;
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -23,27 +22,29 @@ public class UserController {
   @Autowired
   private UserRepository userRepository;
 
-  @GetMapping("/welcome")
-  public String welcome() {
-    log.info("Welcome page is returned");
-    return "welcome";
-  }
-
   @GetMapping("/")
-  public String index(Model model) {
+  public String index(Model model, @CookieValue(value = "lastSearch", required = false) Cookie searchCookie) {
     List<User> users = userRepository.findAll();
     model.addAttribute("users", users);
+    //Проверка наличия куки
+    if (searchCookie != null) {
+      String searchName = searchCookie.getValue();
+      List<User> filterList = userRepository.findByNicknameEquals(searchName);
+      model.addAttribute("users", filterList);
+      model.addAttribute("lastSearch", searchName);
+    }
     return "users";
   }
 
   @PostMapping(value = "/search")
-  public String hello(Model model, @RequestParam(defaultValue = "") String searchName) {
-    List<User> filterList = userRepository.findAll().stream()
-        .filter(user -> user.getNickname().equals(searchName))
-        .collect(Collectors.toList());
-
+  public String searchUser(Model model, @RequestParam(defaultValue = "") String searchName, HttpServletResponse response) {
+    List<User> filterList = userRepository.findByNicknameEquals(searchName);
     model.addAttribute("users", filterList);
     model.addAttribute("lastSearch", searchName);
+    //запись последнего поиска в куки
+    Cookie lastSearch = new Cookie("lastSearch", searchName);
+    lastSearch.setMaxAge(3600);
+    response.addCookie(lastSearch);
     return "users";
   }
 
