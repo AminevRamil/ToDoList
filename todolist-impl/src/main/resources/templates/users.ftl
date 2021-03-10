@@ -40,30 +40,37 @@
 
     </fieldset>
   </div>
-  <p><#if lastSearch??>Поиск для: ${lastSearch}<#else></#if></p>
 
+    <#if lastSearch??>
+      <p>Поиск для: ${lastSearch}</p>
+    <#else></#if>
   <div>
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">id</th>
         <th scope="col">nickname</th>
         <th scope="col">password</th>
         <th scope="col">email</th>
       </tr>
       </thead>
       <tbody>
-      <#list users as user>
+      <#if lastSearch??>
         <tr>
-          <td>${user.id}</td>
-          <td>${user.nickname}</td>
-          <td>${user.password}</td>
-          <td>${user.email}</td>
+          <td>${userNickname}</td>
+          <td>${userPassword}</td>
+          <td>${userEmail}</td>
         </tr>
-      </#list>
+      <#else>
+          <#list users as user>
+            <tr>
+              <td>${user.nickname}</td>
+              <td>${user.password}</td>
+              <td>${user.email}</td>
+            </tr>
+          </#list>
+      </#if>
       </tbody>
     </table>
   </div>
-
 </div>
 </body>
