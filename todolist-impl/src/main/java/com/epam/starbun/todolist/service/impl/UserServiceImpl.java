@@ -5,13 +5,13 @@ import com.epam.starbun.todolist.domain.User;
 import com.epam.starbun.todolist.dto.UserDto;
 import com.epam.starbun.todolist.repository.UserRepository;
 import com.epam.starbun.todolist.service.UserService;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -32,21 +32,26 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public boolean save(UserDto userDto) {
+  public UUID save(UserDto userDto) {
     User user = userConverter.createNewUserEntity(userDto);
     try {
-      userRepository.save(user);
-      return true;
+      User savedUser = userRepository.save(user);
+      return savedUser.getId();
     } catch (Exception e) {
       log.error(e.getMessage(), e);
-      return false;
+      return null;
     }
   }
 
   @Override
-  public UserDto findByNickname(String searchName) {
-    User user = userRepository.findFirstByNicknameEquals(searchName);
-    UserDto userDto = userConverter.convert(user);
-    return userDto;
+  public List<UserDto> findByNickname(String searchName) {
+    List<User> users = userRepository.findByNicknameLike(searchName);
+    return users.stream().map(userConverter::convert).collect(Collectors.toList());
+  }
+
+  @Override
+  public UserDto findById(String id) {
+    User user = userRepository.getOne(UUID.fromString(id));
+    return userConverter.convert(user);
   }
 }

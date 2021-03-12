@@ -1,16 +1,18 @@
 package com.epam.starbun.todolist.service;
 
 import com.epam.starbun.todolist.dto.UserDto;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
+import java.util.UUID;
+import org.springframework.stereotype.Component;
 
 @Component
 public interface UserService {
 
   List<UserDto> findAll();
 
-  boolean save(UserDto userDto);
+  UUID save(UserDto userDto);
 
-  UserDto findByNickname(String searchName);
+  List<UserDto> findByNickname(String searchName);
+
+  UserDto findById(String id);
 }

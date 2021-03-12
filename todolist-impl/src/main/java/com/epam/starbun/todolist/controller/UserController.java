@@ -3,16 +3,19 @@ package com.epam.starbun.todolist.controller;
 
 import com.epam.starbun.todolist.dto.UserDto;
 import com.epam.starbun.todolist.service.UserService;
+import java.util.List;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
@@ -30,21 +33,18 @@ public class UserController {
     if (searchCookie != null) {
       String searchName = searchCookie.getValue();
       model.addAttribute("lastSearch", searchName);
-      UserDto userDto = userService.findByNickname(searchName);
-      model.addAttribute("userNickname", userDto.getNickname());
-      model.addAttribute("userPassword", userDto.getPassword());
-      model.addAttribute("userEmail", userDto.getEmail());
+      List<UserDto> userDtoList = userService.findByNickname(searchName);
+      model.addAttribute("lastSearch", searchName);
+      model.addAttribute("users", userDtoList);
     }
     return "users";
   }
 
   @PostMapping(value = "/search")
   public String searchUser(Model model, @RequestParam(defaultValue = "") String searchName, HttpServletResponse response) {
-    UserDto userDto = userService.findByNickname(searchName);
+    List<UserDto> userDtoList = userService.findByNickname(searchName);
     model.addAttribute("lastSearch", searchName);
-    model.addAttribute("userNickname", userDto.getNickname());
-    model.addAttribute("userPassword", userDto.getPassword());
-    model.addAttribute("userEmail", userDto.getEmail());
+    model.addAttribute("users", userDtoList);
     //запись последнего поиска в куки
     Cookie lastSearch = new Cookie("lastSearch", searchName);
     lastSearch.setMaxAge(3600);

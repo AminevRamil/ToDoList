@@ -2,10 +2,9 @@ package com.epam.starbun.todolist.converter;
 
 import com.epam.starbun.todolist.domain.User;
 import com.epam.starbun.todolist.dto.UserDto;
-import org.springframework.stereotype.Component;
-
 import java.time.OffsetDateTime;
 import java.util.UUID;
+import org.springframework.stereotype.Component;
 
 @Component
 public class UserConverter {
@@ -21,6 +20,6 @@ public class UserConverter {
   }
 
   public UserDto convert(User user) {
-    return new UserDto(user.getNickname(), user.getEmail(), user.getPassword());
+    return new UserDto(user.getId(), user.getNickname(), user.getEmail(), user.getPassword());
   }
 }
