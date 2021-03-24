@@ -15,16 +15,25 @@
         crossorigin="anonymous"></script>
 
 <div class="container">
-  <div>
-    <fieldset>
-      <legend>Добавить пользователя</legend>
-      <form name="user" action="save" method="POST">
-          <@ui.formInput id="t1" name="nickname" label="Никнейкм"/> <br/>
-          <@ui.formInput id="t2" name="email" label="Е-почта"/> <br/>
-          <@ui.formInput id="t3" name="password" label="Пароль"/> <br/>
-        <input class="btn btn-primary" type="submit" value="Save"/>
-      </form>
-    </fieldset>
+  <div class="row">
+    <div class="col">
+      <fieldset>
+        <legend>Добавить пользователя</legend>
+        <form name="user" action="save" method="POST">
+            <@ui.formInput id="t1" name="nickname" label="Никнейкм"/> <br/>
+            <@ui.formInput id="t2" name="email" label="Е-почта"/> <br/>
+            <@ui.formInput id="t3" name="password" label="Пароль"/> <br/>
+          <input class="btn btn-primary" type="submit" value="Save"/>
+        </form>
+      </fieldset>
+    </div>
+    <div class="col">
+        <#if violations??>
+            <#list violations as violation>
+              <p>${violation}</p>
+            </#list>
+        <#else></#if>
+    </div>
   </div>
 
   <div>
@@ -55,14 +64,14 @@
       </tr>
       </thead>
       <tbody>
-        <#list users as user>
-          <tr>
-            <td>${user.id}</td>
-            <td>${user.nickname}</td>
-            <td>${user.password}</td>
-            <td>${user.email}</td>
-          </tr>
-        </#list>
+      <#list users as user>
+        <tr>
+          <td>${user.id}</td>
+          <td>${user.nickname}</td>
+          <td>${user.password}</td>
+          <td>${user.email}</td>
+        </tr>
+      </#list>
       </tbody>
     </table>
   </div>
