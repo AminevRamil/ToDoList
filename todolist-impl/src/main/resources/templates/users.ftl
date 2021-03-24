@@ -33,9 +33,9 @@
       <form name="searchForm" action="search">
           <@ui.formInput id="t4" name="searchName" label="Поиск"/> <br/>
         <input class="btn btn-primary" type="submit" value="Search" formmethod="POST"/>
-        <a href="/" class="btn btn-primary" role="button">Reset</a>
       </form>
-      <form name="resetButton" method="GET">
+      <form name="resetButton" action="reset">
+        <input class="btn btn-primary" type="submit" value="Reset" formmethod="POST"/>
       </form>
 
     </fieldset>

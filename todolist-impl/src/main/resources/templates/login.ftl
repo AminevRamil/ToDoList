@@ -54,7 +54,7 @@
           </div>
           <div class="col">
             <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Вход</button>
+              <button formmethod="post" formaction="" type="submit" class="btn btn-primary">Вход</button>
             </div>
           </div>
 

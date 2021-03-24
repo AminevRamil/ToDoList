@@ -49,6 +49,15 @@ public class UserController {
     return "users";
   }
 
+  @PostMapping(value = "/reset")
+  public String resetCookie(Model model, @CookieValue(value = "lastSearch", required = false) Cookie searchCookie, HttpServletResponse response) {
+    searchCookie.setMaxAge(0);
+    response.addCookie(searchCookie);
+    List<UserDto> users = userService.findAll();
+    model.addAttribute("users", users);
+    return "users";
+  }
+
   @PostMapping(value = "/save")
   public String save(Model model, @ModelAttribute("user") UserDto userDto) {
     userService.save(userDto);
