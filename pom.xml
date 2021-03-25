@@ -23,61 +23,6 @@
 
     <version>0.0.1-SNAPSHOT</version>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>11</java.version>
-    </properties>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <configuration>
-                        <excludes>
-                            <exclude>
-                                <artifactId>lombok</artifactId>
-                                <groupId>org.projectlombok</groupId>
-                            </exclude>
-                        </excludes>
-                    </configuration>
-                    <groupId>org.springframework.boot</groupId>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-
-    <profiles>
-        <profile>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>liquibase-maven-plugin</artifactId>
-                        <dependencies>
-                            <dependency>
-                                <artifactId>postgresql</artifactId>
-                                <groupId>org.postgresql</groupId>
-                                <version>42.2.14</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>update</goal>
-                                </goals>
-                                <phase>process-resources</phase>
-                            </execution>
-                        </executions>
-                        <groupId>org.liquibase</groupId>
-                        <version>3.8.9</version>
-                    </plugin>
-                </plugins>
-            </build>
-            <id>liquibase</id>
-        </profile>
-    </profiles>
-
     <dependencies>
         <dependency>
             <groupId>ma.glasnost.orika</groupId>
@@ -92,6 +37,11 @@
             <groupId>net.rakugakibox.spring.boot</groupId>
             <artifactId>orika-spring-boot-starter</artifactId>
             <version>1.9.0</version>
+        </dependency>
+        <dependency>
+            <artifactId>springfox-boot-starter</artifactId>
+            <groupId>io.springfox</groupId>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
@@ -136,5 +86,85 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <artifactId>lombok</artifactId>
+                                <groupId>org.projectlombok</groupId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                    <groupId>org.springframework.boot</groupId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <configuration>
+                            <changeLogFile>${liquibase.changelogfile}</changeLogFile>
+                            <driver>org.postgresql.Driver</driver>
+                            <outputFileEncoding>UTF-8</outputFileEncoding>
+                            <password>${liquibase.password}</password>
+                            <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                            <url>
+                                jdbc:postgresql://${liquibase.host}:${liquibase.port}/${liquibase.db}?currentSchema=${liquibase.schema}
+                            </url>
+                            <username>${liquibase.user}</username>
+                        </configuration>
+                        <groupId>org.liquibase</groupId>
+                        <version>${liquibase.version}</version>
+                    </plugin>
+                    <plugin>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <dependencies>
+                            <dependency>
+                                <artifactId>postgresql</artifactId>
+                                <groupId>org.postgresql</groupId>
+                                <version>42.2.14</version>
+                            </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                                <phase>process-resources</phase>
+                            </execution>
+                        </executions>
+                        <groupId>org.liquibase</groupId>
+                        <version>3.8.9</version>
+                    </plugin>
+                </plugins>
+            </build>
+            <id>liquibase</id>
+        </profile>
+    </profiles>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>11</java.version>
+
+        <liquibase.changelogfile>todolist-db/db-changelogs/db.changelog-master.xml</liquibase.changelogfile>
+        <liquibase.db>todolist</liquibase.db>
+        <liquibase.host>localhost</liquibase.host>
+        <liquibase.password>postgres</liquibase.password>
+        <liquibase.port>5434</liquibase.port>
+        <liquibase.schema>public</liquibase.schema>
+        <liquibase.user>postgres</liquibase.user>
+        <liquibase.version>3.8.9</liquibase.version>
+    </properties>
 
 </project>
