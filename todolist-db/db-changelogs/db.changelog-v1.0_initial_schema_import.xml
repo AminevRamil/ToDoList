@@ -7,7 +7,7 @@
 
     <changeSet author="Aminev Ramil" id="create-users-table-08-02-2021">
         <createTable schemaName="public" tableName="users">
-            <column name="id" type="uuid">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="nickname" type="varchar">
@@ -30,7 +30,7 @@
 
     <changeSet id="create-note-table-08-02-2021" author="Aminev Ramil">
         <createTable tableName="note" schemaName="public">
-            <column name="id" type="uuid">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="title" type="varchar">
@@ -53,10 +53,10 @@
 
     <changeSet id="create-attachment-table-08-02-2021" author="Aminev Ramil">
         <createTable tableName="attachment" schemaName="public">
-            <column name="id" type="uuid">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="note_id" type="uuid">
+            <column name="note_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="filename" type="varchar">
@@ -79,13 +79,13 @@
 
     <changeSet author="Aminev Ramil" id="create-users-note-table-08-02-2021">
         <createTable tableName="users_note">
-            <column name="id" type="uuid">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="user_id" type="uuid">
+            <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="note_id" type="uuid">
+            <column name="note_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>

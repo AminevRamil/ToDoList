@@ -22,7 +22,7 @@
         <form name="user" action="save" method="POST">
             <@ui.formInput id="t1" name="nickname" label="Никнейкм"/> <br/>
             <@ui.formInput id="t2" name="email" label="Е-почта"/> <br/>
-            <@ui.formInput id="t3" name="password" label="Пароль"/> <br/>
+            <@ui.formInput id="t3" name="password" label="Пароль" type="password"/> <br/>
           <input class="btn btn-primary" type="submit" value="Save"/>
         </form>
       </fieldset>

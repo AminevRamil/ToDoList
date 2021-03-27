@@ -1,14 +1,15 @@
 package com.epam.starbun.todolist.dto;
 
 
-import java.time.OffsetDateTime;
-import java.util.List;
 import lombok.Data;
 
-@Data
-public class NoteDto {
+import java.time.OffsetDateTime;
+import java.util.List;
 
-  private List<AttachmentDto> attachmentList;
+@Data
+public class Note {
+
+  private List<Attachment> attachmentList;
 
   private String title;
   private String body;

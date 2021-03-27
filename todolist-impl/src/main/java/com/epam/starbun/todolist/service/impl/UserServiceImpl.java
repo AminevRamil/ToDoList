@@ -1,7 +1,7 @@
 package com.epam.starbun.todolist.service.impl;
 
-import com.epam.starbun.todolist.domain.User;
-import com.epam.starbun.todolist.dto.UserDto;
+import com.epam.starbun.todolist.domain.UserEntity;
+import com.epam.starbun.todolist.dto.User;
 import com.epam.starbun.todolist.repository.UserRepository;
 import com.epam.starbun.todolist.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -23,20 +22,19 @@ public class UserServiceImpl implements UserService {
   private final MapperFacade mapperFacade;
 
   @Override
-  public List<UserDto> findAll() {
-    List<User> users = userRepository.findAll();
-    List<UserDto> userDtos = mapperFacade.mapAsList(users, UserDto.class);
-    return userDtos;
+  public List<User> findAll() {
+    List<UserEntity> userEntities = userRepository.findAll();
+    List<User> users = mapperFacade.mapAsList(userEntities, User.class);
+    return users;
   }
 
   @Override
-  public UUID save(UserDto userDto) {
-    User user = mapperFacade.map(userDto, User.class);
-    user.setCreationDate(OffsetDateTime.now());
-    user.setId(UUID.randomUUID());
+  public User save(User user) {
+    UserEntity userEntity = mapperFacade.map(user, UserEntity.class);
+    userEntity.setCreationDate(OffsetDateTime.now());
     try {
-      User savedUser = userRepository.save(user);
-      return savedUser.getId();
+      UserEntity savedUserEntity = userRepository.save(userEntity);
+      return mapperFacade.map(savedUserEntity, User.class);
     } catch (Exception e) {
       log.error(e.getMessage(), e);
       return null;
@@ -44,24 +42,39 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public List<UserDto> findByNickname(String searchName) {
-    List<User> users = userRepository.findByNicknameLike(searchName);
-    return mapperFacade.mapAsList(users, UserDto.class);
+  public List<User> findByNickname(String searchName) {
+    List<UserEntity> userEntities = userRepository.findByNicknameLike(searchName);
+    return mapperFacade.mapAsList(userEntities, User.class);
   }
 
   @Override
-  public UserDto findById(String id) {
-    User user = userRepository.getOne(UUID.fromString(id));
-    return mapperFacade.map(user, UserDto.class);
+  public User findById(Long id) {
+    UserEntity userEntity = userRepository.getOne(id);
+    return mapperFacade.map(userEntity, User.class);
   }
 
   @Override
-  public UserDto findOneByNickname(String nickname) {
-    List<User> userList = userRepository.findByNicknameLike(nickname);
-    if (userList.isEmpty()) {
+  public User findOneByNickname(String nickname) {
+    List<UserEntity> userEntityList = userRepository.findByNicknameLike(nickname);
+    if (userEntityList.isEmpty()) {
       return null;
     } else {
-      return mapperFacade.map(userList.get(0), UserDto.class);
+      return mapperFacade.map(userEntityList.get(0), User.class);
     }
+  }
+
+  @Override
+  public void deleteUserById(Long userId) {
+    userRepository.deleteById(userId);
+  }
+
+  @Override
+  public User update(User user) {
+    UserEntity userEntity = userRepository.findById(user.getId()).get();
+    userEntity.setEmail(user.getEmail());
+    userEntity.setPassword(user.getPassword());
+    userEntity.setNickname(user.getNickname());
+    userRepository.saveAndFlush(userEntity);
+    return null;
   }
 }

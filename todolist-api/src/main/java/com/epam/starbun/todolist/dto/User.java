@@ -4,12 +4,11 @@ import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
-import java.util.UUID;
 
 @Data
-public class UserDto {
+public class User {
 
-  private UUID id;
+  private Long id = 0L;
   @Pattern(regexp = "^[A-Za-z][A-Za-z0-9_]{5,16}$",
     message = "Никнейм должен состоять из латиницы, цифр и символа \"_\", и начинаться с буквы")
   private String nickname;

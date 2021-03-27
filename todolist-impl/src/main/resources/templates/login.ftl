@@ -1,3 +1,5 @@
+<#import "ui.ftl" as ui/>
+
 <!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
@@ -21,35 +23,36 @@
         <div class="row">
           <div class="col">
             <legend>Регистрация</legend>
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Никнейм/Логин</label>
-              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name">
-            </div>
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Адрес электронной почты</label>
-              <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="name@example.com">
-            </div>
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Пароль</label>
-              <input type="password" class="form-control" id="exampleFormControlInput3">
-            </div>
+            <form id="regForm" name="userEntity" action="save" method="POST">
+              <div class="mb-3">
+                  <@ui.formInput id="t1" name="nickname" label="Никнейкм/Логин"/><br/>
+              </div>
+              <div class="mb-3">
+                  <@ui.formInput id="t2" name="email" label="Адрес электронной почты"/> <br/>
+              </div>
+              <div class="mb-3">
+                  <@ui.formInput id="t3" name="password" label="Пароль" type="password"/> <br/>
+              </div>
+            </form>
           </div>
           <div class="col">
             <legend>Авторизация</legend>
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Никнейм/Логин</label>
-              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name">
-            </div>
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Пароль</label>
-              <input type="password" class="form-control" id="exampleFormControlInput3">
-            </div>
+            <form id="authForm">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Никнейм/Логин</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name">
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Пароль</label>
+                <input type="password" class="form-control" id="exampleFormControlInput3">
+              </div>
+            </form>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+              <button formaction="save" formmethod="post" type="submit" form="regForm" class="btn btn-primary">Зарегистрироваться</button>
             </div>
           </div>
           <div class="col">

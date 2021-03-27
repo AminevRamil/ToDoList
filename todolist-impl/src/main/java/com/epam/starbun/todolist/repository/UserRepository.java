@@ -1,13 +1,13 @@
 package com.epam.starbun.todolist.repository;
 
-import com.epam.starbun.todolist.domain.User;
-import java.util.List;
-import java.util.UUID;
+import com.epam.starbun.todolist.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, UUID> {
+import java.util.List;
 
-  List<User> findByNicknameLike(String nickname);
+@Repository
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
+
+  List<UserEntity> findByNicknameLike(String nickname);
 }

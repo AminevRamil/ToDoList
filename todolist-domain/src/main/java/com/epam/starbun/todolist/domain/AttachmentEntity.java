@@ -5,14 +5,13 @@ import lombok.Data;
 import javax.persistence.*;
 import java.sql.Blob;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Data
 @Entity
 @Table(name = "attachment")
-public class Attachment {
+public class AttachmentEntity {
     @Id
-    private UUID id;
+    private Long id;
 
     private String filename;
 

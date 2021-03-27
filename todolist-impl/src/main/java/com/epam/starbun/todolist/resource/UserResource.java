@@ -1,44 +1,51 @@
 package com.epam.starbun.todolist.resource;
 
-import com.epam.starbun.todolist.dto.UserDto;
+import com.epam.starbun.todolist.dto.User;
+import com.epam.starbun.todolist.exception.RequestException;
 import com.epam.starbun.todolist.service.UserService;
-import java.util.List;
-import java.util.UUID;
-import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.List;
+import java.util.Set;
 
 @RestController
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserResource {
 
-  @Autowired
   private final UserService userService;
 
-  @GetMapping("/user/{id}")
-  public UserDto getById(@PathVariable("id") String userId) {
-    return userService.findById(userId);
+  private final Validator validator;
+
+  @GetMapping("/{id}")
+  public User getById(@PathVariable("id") Long userId) {
+    return userService.findById(userId); //orElseThrow
   }
 
-  @GetMapping("/users")
-  public List<UserDto> getAll() {
+  @GetMapping("/")
+  public List<User> getUsers() {
     return userService.findAll();
   }
 
-  @PostMapping("/user")
-  public UUID addUser(@RequestBody UserDto userDto, HttpServletResponse response) {
-    UUID savedUserId = userService.save(userDto);
-    if (savedUserId != null) {
-      response.setStatus(HttpServletResponse.SC_OK);
-      return savedUserId;
-    } else {
-      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return null;
+  @PostMapping("/")
+  public User addUser(@RequestBody User user) {
+    Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
+    if (!constraintViolations.isEmpty()) {
+      throw new RequestException(constraintViolations.stream().map(ConstraintViolation::getMessage).toArray(String[]::new));
     }
+    return userService.save(user);
+  }
+
+  @PutMapping("/")
+  public User updateUser(@RequestBody User user) {
+    return userService.update(user);
+  }
+
+  @DeleteMapping("/{id}")
+  public void deleteUser(@PathVariable("id") Long id) {
+    userService.deleteUserById(id);
   }
 }
