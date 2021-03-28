@@ -7,7 +7,7 @@ public class RequestException extends RuntimeException {
   @Getter
   private final String[] errors;
 
-  public RequestException(String[] errors) {
+  public RequestException(String... errors) {
     super();
     this.errors = errors;
   }
