@@ -2,16 +2,14 @@ package com.epam.starbun.todolist.resource;
 
 import com.epam.starbun.todolist.annotation.CheckLogin;
 import com.epam.starbun.todolist.dto.User;
-import com.epam.starbun.todolist.exception.RequestException;
 import com.epam.starbun.todolist.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
-import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/user")
@@ -22,9 +20,10 @@ public class UserResource {
 
   private final Validator validator;
 
+  @CheckLogin
   @GetMapping("/{id}")
   public User getById(@PathVariable("id") Long userId) {
-    return userService.findById(userId); //orElseThrow
+    return userService.findById(userId);
   }
 
   @CheckLogin
@@ -35,17 +34,13 @@ public class UserResource {
 
   @CheckLogin
   @PostMapping("/")
-  public User addUser(@RequestBody User user, @CookieValue(name = "authUser", required = false) Cookie authCookie) {
-    Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
-    if (!constraintViolations.isEmpty()) {
-      throw new RequestException(constraintViolations.stream().map(ConstraintViolation::getMessage).toArray(String[]::new));
-    }
+  public User addUser(@RequestBody @Validated User user, @CookieValue(name = "authUser", required = false) Cookie authCookie) {
     return userService.save(user);
   }
 
   @CheckLogin
   @PutMapping("/")
-  public User updateUser(@RequestBody User user, @CookieValue(name = "authUser", required = false) Cookie authCookie) {
+  public User updateUser(@Validated User user, @CookieValue(name = "authUser", required = false) Cookie authCookie) {
     return userService.update(user);
   }
 

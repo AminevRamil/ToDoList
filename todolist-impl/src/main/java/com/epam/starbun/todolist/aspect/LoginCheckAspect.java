@@ -33,7 +33,7 @@ public class LoginCheckAspect {
     try {
       return pjp.proceed();
     } catch (RequestException re) {
-      throw re; //Пробрасываю, чтоб бросаемые котроллером исключения обрабатывались ControllerExceptionHandlerAdvice
+      throw re; //Пробрасываю, чтоб бросаемые котроллером исключения обрабатывались *ExceptionHandlerAdvice
     } catch (Throwable throwable) {
       throwable.printStackTrace();
       RequestException re = new RequestException("Внутренняя ошибка сервера. Свяжитесь с администратором");

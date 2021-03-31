@@ -7,13 +7,12 @@ import com.epam.starbun.todolist.exception.RequestException;
 import com.epam.starbun.todolist.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
-import java.util.Set;
 
 @Slf4j
 @RestController
@@ -26,11 +25,7 @@ public class LoginResource {
   private final Validator validator;
 
   @PostMapping("/login")
-  public RequestResponse login(@RequestBody AuthRequest authRequest, HttpServletResponse response) {
-    Set<ConstraintViolation<AuthRequest>> constraintViolations = validator.validate(authRequest);
-    if (!constraintViolations.isEmpty()) {
-      throw new RequestException(constraintViolations.stream().map(ConstraintViolation::getMessage).toArray(String[]::new));
-    }
+  public RequestResponse login(@Validated @RequestBody AuthRequest authRequest, HttpServletResponse response) {
     User user = userService.findOneByNickname(authRequest.getLogin());
     if (user == null && !user.getPassword().equals(authRequest.getPassword())) {
       throw new RequestException("Неверный логин или пароль");

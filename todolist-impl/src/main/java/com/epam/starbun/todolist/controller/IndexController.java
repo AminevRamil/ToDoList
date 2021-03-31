@@ -1,4 +1,4 @@
-package com.epam.starbun.todolist.resource;
+package com.epam.starbun.todolist.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

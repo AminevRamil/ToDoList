@@ -58,6 +58,9 @@
           <div class="d-grid">
             <button formaction="/login/save" formmethod="post" type="submit" form="regForm" class="btn btn-primary">Зарегистрироваться</button>
           </div>
+          <#if result??>
+            <p>${result}</p>
+          <#else></#if>
         </div>
         <div class="col">
           <div class="d-grid">
