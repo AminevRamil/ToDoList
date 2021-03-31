@@ -19,7 +19,7 @@
     <div class="col">
       <fieldset>
         <legend>Добавить пользователя</legend>
-        <form name="user" action="save" method="POST">
+        <form name="user" action="/user/save" method="POST">
             <@ui.formInput id="t1" name="nickname" label="Никнейкм"/> <br/>
             <@ui.formInput id="t2" name="email" label="Е-почта"/> <br/>
             <@ui.formInput id="t3" name="password" label="Пароль" type="password"/> <br/>
@@ -53,27 +53,29 @@
     <#if lastSearch??>
       <p>Поиск для: ${lastSearch}</p>
     <#else></#if>
-  <div>
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">id</th>
-        <th scope="col">nickname</th>
-        <th scope="col">password</th>
-        <th scope="col">email</th>
-      </tr>
-      </thead>
-      <tbody>
-      <#list users as user>
+  <#if users??>
+    <div>
+      <table class="table">
+        <thead>
         <tr>
-          <td>${user.id}</td>
-          <td>${user.nickname}</td>
-          <td>${user.password}</td>
-          <td>${user.email}</td>
+          <th scope="col">id</th>
+          <th scope="col">nickname</th>
+          <th scope="col">password</th>
+          <th scope="col">email</th>
         </tr>
-      </#list>
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+        <#list users as user>
+          <tr>
+            <td>${user.id}</td>
+            <td>${user.nickname}</td>
+            <td>${user.password}</td>
+            <td>${user.email}</td>
+          </tr>
+        </#list>
+        </tbody>
+      </table>
+    </div>
+  <#else></#if>
 </div>
 </body>

@@ -14,56 +14,86 @@
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
         crossorigin="anonymous"></script>
 
-<div class="container"></div>
-<div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col">
-            <legend>Регистрация</legend>
-            <form id="regForm" name="userEntity" action="save" method="POST">
-              <div class="mb-3">
-                  <@ui.formInput id="t1" name="nickname" label="Никнейкм/Логин"/><br/>
-              </div>
-              <div class="mb-3">
-                  <@ui.formInput id="t2" name="email" label="Адрес электронной почты"/> <br/>
-              </div>
-              <div class="mb-3">
-                  <@ui.formInput id="t3" name="password" label="Пароль" type="password"/> <br/>
-              </div>
-            </form>
-          </div>
-          <div class="col">
-            <legend>Авторизация</legend>
-            <form id="authForm">
-              <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Никнейм/Логин</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name">
-              </div>
-              <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Пароль</label>
-                <input type="password" class="form-control" id="exampleFormControlInput3">
-              </div>
-            </form>
-          </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <#if violations??>
+        <#list violations as violation>
+          <p>${violation}</p>
+        </#list>
+      <#else></#if>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col">
+          <legend>Регистрация</legend>
+          <form id="regForm" name="user" action="" method="">
+            <div class="mb-3">
+                <@ui.formInput id="t1" name="nickname" label="Никнейкм/Логин"/><br/>
+            </div>
+            <div class="mb-3">
+                <@ui.formInput id="t2" name="email" label="Адрес электронной почты"/> <br/>
+            </div>
+            <div class="mb-3">
+                <@ui.formInput id="t3" name="password" label="Пароль" type="password"/> <br/>
+            </div>
+          </form>
         </div>
-        <div class="row">
-          <div class="col">
-            <div class="d-grid">
-              <button formaction="save" formmethod="post" type="submit" form="regForm" class="btn btn-primary">Зарегистрироваться</button>
+        <div class="col">
+          <legend>Авторизация</legend>
+          <form id="authForm">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Никнейм/Логин</label>
+              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name">
             </div>
-          </div>
-          <div class="col">
-            <div class="d-grid">
-              <button formmethod="post" formaction="" type="submit" class="btn btn-primary">Вход</button>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Пароль</label>
+              <input type="password" class="form-control" id="exampleFormControlInput3">
             </div>
-          </div>
-
+          </form>
         </div>
       </div>
-      <div class="col-md-3"></div>
+      <div class="row">
+        <div class="col">
+          <div class="d-grid">
+            <button formaction="/login/save" formmethod="post" type="submit" form="regForm" class="btn btn-primary">Зарегистрироваться</button>
+          </div>
+        </div>
+        <div class="col">
+          <div class="d-grid">
+            <button formmethod="post" formaction="" type="submit" class="btn btn-primary">Вход</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
     </div>
   </div>
 </div>

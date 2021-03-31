@@ -3,30 +3,30 @@ package com.epam.starbun.todolist.resource;
 
 import com.epam.starbun.todolist.dto.User;
 import com.epam.starbun.todolist.service.UserService;
+import java.util.List;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/user")
 public class UserController {
 
   private final UserService userService;
 
-  private final Validator validator;
-
-  @GetMapping("/")
+  @GetMapping({"", "/"})
   public String index(Model model, @CookieValue(value = "lastSearch", required = false) Cookie searchCookie) {
     List<User> users = userService.findAll();
     model.addAttribute("users", users);
@@ -38,7 +38,7 @@ public class UserController {
       model.addAttribute("lastSearch", searchName);
       model.addAttribute("users", userList);
     }
-    return "users";
+    return "user";
   }
 
   @PostMapping(value = "/search")
@@ -50,7 +50,7 @@ public class UserController {
     Cookie lastSearch = new Cookie("lastSearch", searchName);
     lastSearch.setMaxAge(3600);
     response.addCookie(lastSearch);
-    return "users";
+    return "user";
   }
 
   @PostMapping(value = "/reset")
@@ -59,21 +59,14 @@ public class UserController {
     response.addCookie(searchCookie);
     List<User> users = userService.findAll();
     model.addAttribute("users", users);
-    return "users";
+    return "user";
   }
 
   @PostMapping(value = "/save")
-  public String save(Model model, @ModelAttribute("user") User user) {
-
-    Set<ConstraintViolation<User>> violations = validator.validate(user);
-    if (!violations.isEmpty()) {
-      List<String> errorMessages = violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
-      model.addAttribute("violations", errorMessages);
-    } else {
-      userService.save(user);
-    }
+  public String save(Model model, @Validated @ModelAttribute("user") User user) {
+    userService.save(user);
     List<User> users = userService.findAll();
     model.addAttribute("users", users);
-    return "users";
+    return "user";
   }
 }
