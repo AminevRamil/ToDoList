@@ -7,6 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
+  <title>Navbar</title>
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
@@ -35,6 +36,7 @@
           <a class="nav-link active" aria-current="page" href="/setting">Настройки</a>
         </li>
       </ul>
+      <p>Current User: ${currentUser}!N/A</p>
       <button class="btn btn-outline-success" type="submit">Поиск</button>
     </div>
   </div>

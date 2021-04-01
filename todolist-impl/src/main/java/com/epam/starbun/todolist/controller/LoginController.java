@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -31,6 +32,10 @@ public class LoginController {
   @PostMapping("/logon")
   public String authorize(Model model, @Valid @ModelAttribute("authData") AuthRequest authData, HttpServletResponse response) {
     User user = userService.authorizeUser(authData);
+    Cookie authUser = new Cookie("authUser", user.getNickname());
+    model.addAttribute("currentUser", user.getNickname());
+    authUser.setMaxAge(3600);
+    response.addCookie(authUser);
     return "main";
   }
 }
