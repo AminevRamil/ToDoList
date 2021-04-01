@@ -1,4 +1,5 @@
 <#import "ui.ftl" as ui/>
+<#include "navbar.ftl">
 
 <!DOCTYPE html>
 <head>
