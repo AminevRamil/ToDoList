@@ -1,5 +1,6 @@
 package com.epam.starbun.todolist.service;
 
+import com.epam.starbun.todolist.dto.AuthRequest;
 import com.epam.starbun.todolist.dto.User;
 import org.springframework.stereotype.Component;
 
@@ -21,4 +22,6 @@ public interface UserService {
   void deleteUserById(Long userId);
 
   User update(User user);
+
+  User authorizeUser(AuthRequest authData);
 }

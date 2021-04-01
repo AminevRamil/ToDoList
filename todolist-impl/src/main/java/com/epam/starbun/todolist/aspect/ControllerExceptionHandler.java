@@ -1,5 +1,6 @@
 package com.epam.starbun.todolist.aspect;
 
+import com.epam.starbun.todolist.exception.RequestException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,10 +15,17 @@ import java.util.stream.Collectors;
 public class ControllerExceptionHandler {
 
   @ExceptionHandler
+  public ModelAndView handleRestRequestException(RequestException e, HttpServletRequest request) {
+    ModelAndView model = new ModelAndView(extractUri(request));
+    model.addObject("violations", e.getErrors());
+    return model;
+  }
+
+  @ExceptionHandler
   public ModelAndView handleWebPageException(BindException e, HttpServletRequest request) {
     List<String> violations = e.getFieldErrors().stream()
-        .map(DefaultMessageSourceResolvable::getDefaultMessage)
-        .collect(Collectors.toList());
+      .map(DefaultMessageSourceResolvable::getDefaultMessage)
+      .collect(Collectors.toList());
     ModelAndView model = new ModelAndView(extractUri(request));
     model.addObject("violations", violations);
     return model;

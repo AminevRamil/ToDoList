@@ -1,7 +1,9 @@
 package com.epam.starbun.todolist.service.impl;
 
 import com.epam.starbun.todolist.domain.UserEntity;
+import com.epam.starbun.todolist.dto.AuthRequest;
 import com.epam.starbun.todolist.dto.User;
+import com.epam.starbun.todolist.exception.RequestException;
 import com.epam.starbun.todolist.repository.UserRepository;
 import com.epam.starbun.todolist.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -76,5 +78,14 @@ public class UserServiceImpl implements UserService {
     userEntity.setNickname(user.getNickname());
     userRepository.saveAndFlush(userEntity);
     return null;
+  }
+
+  @Override
+  public User authorizeUser(AuthRequest authData) {
+    User user = findOneByNickname(authData.getLogin());
+    if (user == null || !user.getPassword().equals(authData.getPassword())) {
+      throw new RequestException("Неверный логин или пароль");
+    }
+    return user;
   }
 }

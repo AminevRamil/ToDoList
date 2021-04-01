@@ -27,28 +27,26 @@
       <div class="row">
         <div class="col">
           <legend>Регистрация</legend>
-          <form id="regForm" name="user" action="" method="">
+          <form id="regForm" name="user">
             <div class="mb-3">
-                <@ui.formInput id="t1" name="nickname" label="Никнейкм/Логин"/><br/>
+                <@ui.formInput id="a1" name="nickname" label="Никнейкм/Логин"/><br/>
             </div>
             <div class="mb-3">
-                <@ui.formInput id="t2" name="email" label="Адрес электронной почты"/> <br/>
+                <@ui.formInput id="a2" name="email" label="Адрес электронной почты"/> <br/>
             </div>
             <div class="mb-3">
-                <@ui.formInput id="t3" name="password" label="Пароль" type="password"/> <br/>
+                <@ui.formInput id="a3" name="password" label="Пароль" type="password"/> <br/>
             </div>
           </form>
         </div>
         <div class="col">
           <legend>Авторизация</legend>
-          <form id="authForm">
+          <form id="authForm" name="authData">
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Никнейм/Логин</label>
-              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Name">
+                <@ui.formInput id="a4" name="login" label="Никнейкм/Логин"/><br/>
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Пароль</label>
-              <input type="password" class="form-control" id="exampleFormControlInput3">
+                <@ui.formInput id="a5" name="password" label="Пароль" type="password"/> <br/>
             </div>
           </form>
         </div>
@@ -56,15 +54,19 @@
       <div class="row">
         <div class="col">
           <div class="d-grid">
-            <button formaction="/login/save" formmethod="post" type="submit" form="regForm" class="btn btn-primary">Зарегистрироваться</button>
+            <button form="regForm" formaction="/login/save" formmethod="post" type="submit" class="btn btn-primary">
+              Зарегистрироваться
+            </button>
           </div>
-          <#if result??>
+            <#if result??>
             <p>${result}</p>
           <#else></#if>
         </div>
         <div class="col">
           <div class="d-grid">
-            <button formmethod="post" formaction="" type="submit" class="btn btn-primary">Вход</button>
+            <button form="authForm" formaction="/login/logon" formmethod="post" type="submit" class="btn btn-primary">
+              Вход
+            </button>
           </div>
         </div>
 
