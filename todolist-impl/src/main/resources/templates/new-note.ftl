@@ -16,6 +16,20 @@
         crossorigin="anonymous"></script>
 
 <div class="container">
-  <p>New note page?</p>
+  <div class="col">
+
+  </div>
+  <div class="col">
+    <form id="f1" name="newNote">
+      <@ui.formInput id="f1i1" name="title" label="Заголовок"/>
+      <label for="f1i2">Заметка</label>
+      <textarea id="f1i2" name="body" cols="60" rows="5"></textarea>
+      <@ui.formInput id="f1i3" name="endDate" label="Дата завершения" type="date"/>
+      <button form="newNote" formaction="/new-note/save" formmethod="post" type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+  </div>
+  <div class="col">
+
+  </div>
 </div>
 </body>

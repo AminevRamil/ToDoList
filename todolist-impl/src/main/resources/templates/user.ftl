@@ -21,9 +21,9 @@
       <fieldset>
         <legend>Добавить пользователя</legend>
         <form name="user" action="/user/save" method="POST">
-            <@ui.formInput id="t1" name="nickname" label="Никнейкм"/> <br/>
-            <@ui.formInput id="t2" name="email" label="Е-почта"/> <br/>
-            <@ui.formInput id="t3" name="password" label="Пароль" type="password"/> <br/>
+            <@ui.formInput id="t1" name="nickname" label="Никнейкм"/>
+            <@ui.formInput id="t2" name="email" label="Е-почта"/>
+            <@ui.formInput id="t3" name="password" label="Пароль" type="password"/>
           <input class="btn btn-primary" type="submit" value="Save"/>
         </form>
       </fieldset>
@@ -41,7 +41,7 @@
     <fieldset>
       <legend>Поиск по нику</legend>
       <form name="searchForm" action="search">
-          <@ui.formInput id="t4" name="searchName" label="Поиск"/> <br/>
+          <@ui.formInput id="t4" name="searchName" label="Поиск"/>
         <input class="btn btn-primary" type="submit" value="Search" formmethod="POST"/>
       </form>
       <form name="resetButton" action="reset">

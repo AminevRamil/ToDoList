@@ -15,3 +15,7 @@
 </#list>
 </table>
 </#macro>
+
+<#macro card>
+
+</#macro>

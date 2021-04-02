@@ -29,13 +29,13 @@
           <legend>Регистрация</legend>
           <form id="regForm" name="user">
             <div class="mb-3">
-                <@ui.formInput id="a1" name="nickname" label="Никнейкм/Логин"/><br/>
+                <@ui.formInput id="a1" name="nickname" label="Никнейкм/Логин"/>
             </div>
             <div class="mb-3">
-                <@ui.formInput id="a2" name="email" label="Адрес электронной почты"/> <br/>
+                <@ui.formInput id="a2" name="email" label="Адрес электронной почты"/>
             </div>
             <div class="mb-3">
-                <@ui.formInput id="a3" name="password" label="Пароль" type="password"/> <br/>
+                <@ui.formInput id="a3" name="password" label="Пароль" type="password"/>
             </div>
           </form>
         </div>
@@ -43,10 +43,10 @@
           <legend>Авторизация</legend>
           <form id="authForm" name="authData">
             <div class="mb-3">
-                <@ui.formInput id="a4" name="login" label="Никнейкм/Логин"/><br/>
+                <@ui.formInput id="a4" name="login" label="Никнейкм/Логин"/>
             </div>
             <div class="mb-3">
-                <@ui.formInput id="a5" name="password" label="Пароль" type="password"/> <br/>
+                <@ui.formInput id="a5" name="password" label="Пароль" type="password"/>
             </div>
           </form>
         </div>
