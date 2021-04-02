@@ -6,13 +6,12 @@ import com.epam.starbun.todolist.dto.User;
 import com.epam.starbun.todolist.exception.RequestException;
 import com.epam.starbun.todolist.repository.UserRepository;
 import com.epam.starbun.todolist.service.UserService;
+import java.time.OffsetDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.stereotype.Service;
-
-import java.time.OffsetDateTime;
-import java.util.List;
 
 @Slf4j
 @Service
@@ -45,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<User> findByNickname(String searchName) {
-    List<UserEntity> userEntities = userRepository.findByNicknameLike(searchName);
+    List<UserEntity> userEntities = userRepository.findByNicknameLikeIgnoreCase(searchName.toLowerCase());
     return mapperFacade.mapAsList(userEntities, User.class);
   }
 
@@ -57,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User findOneByNickname(String nickname) {
-    List<UserEntity> userEntityList = userRepository.findByNicknameLike(nickname);
+    List<UserEntity> userEntityList = userRepository.findByNicknameLikeIgnoreCase(nickname.toLowerCase());
     if (userEntityList.isEmpty()) {
       return null;
     } else {
