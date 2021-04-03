@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
+import static com.epam.starbun.todolist.util.ControllerUtils.getCookieByName;
 
 @Aspect
 @Component
@@ -19,12 +22,13 @@ public class LoginCheckAspect {
 
   private final UserService userService;
 
-  @Pointcut("@annotation(com.epam.starbun.todolist.annotation.CheckLogin) && args(..,authCookie)")
-  public void beforeCallAtCheckLogin(Cookie authCookie) {
+  @Pointcut("@annotation(com.epam.starbun.todolist.annotation.CheckLogin) && args(..,request)")
+  public void beforeCallAtCheckLogin(HttpServletRequest request) {
   }
 
-  @Around(value = "beforeCallAtCheckLogin(authCookie)", argNames = "pjp,authCookie")
-  public Object aroundCallAt(ProceedingJoinPoint pjp, Cookie authCookie) {
+  @Around(value = "beforeCallAtCheckLogin(request)", argNames = "pjp, request")
+  public Object aroundCallAt(ProceedingJoinPoint pjp, HttpServletRequest request) {
+    Cookie authCookie = getCookieByName(request, "authCookie");
     if (authCookie == null || userService.findOneByNickname(authCookie.getValue()) == null) {
       RequestException re = new RequestException("Вы не залогинены");
       re.setStatus(HttpStatus.UNAUTHORIZED);

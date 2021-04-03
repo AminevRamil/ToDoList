@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Validator;
 import java.util.List;
 
@@ -22,31 +22,31 @@ public class UserResource {
 
   @CheckLogin
   @GetMapping("/{id}")
-  public User getById(@PathVariable("id") Long userId) {
+  public User getById(@PathVariable("id") Long userId, HttpServletRequest request) {
     return userService.findById(userId);
   }
 
   @CheckLogin
   @GetMapping("/")
-  public List<User> getUsers(@CookieValue(name = "authUser", required = false) Cookie authCookie) {
+  public List<User> getUsers(HttpServletRequest request) {
     return userService.findAll();
   }
 
   @CheckLogin
   @PostMapping("/")
-  public User addUser(@RequestBody @Validated User user, @CookieValue(name = "authUser", required = false) Cookie authCookie) {
+  public User addUser(@RequestBody @Validated User user, HttpServletRequest request) {
     return userService.save(user);
   }
 
   @CheckLogin
   @PutMapping("/")
-  public User updateUser(@Validated User user, @CookieValue(name = "authUser", required = false) Cookie authCookie) {
+  public User updateUser(@Validated User user, HttpServletRequest request) {
     return userService.update(user);
   }
 
   @CheckLogin
   @DeleteMapping("/{id}")
-  public void deleteUser(@PathVariable("id") Long id, @CookieValue(name = "authUser", required = false) Cookie authCookie) {
+  public void deleteUser(@PathVariable("id") Long id, HttpServletRequest request) {
     userService.deleteUserById(id);
   }
 }
