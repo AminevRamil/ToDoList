@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -45,6 +44,7 @@ public class UserController {
     //запись последнего поиска в куки
     Cookie lastSearch = new Cookie("lastSearch", searchName);
     lastSearch.setMaxAge(3600);
+    lastSearch.setPath("/");
     response.addCookie(lastSearch);
     return "user";
   }
@@ -59,7 +59,7 @@ public class UserController {
   }
 
   @PostMapping(value = "/save")
-  public String save(Model model, @Validated @ModelAttribute("user") User user) {
+  public String save(Model model, /*@Validated*/ @ModelAttribute("user") User user) {
     userService.save(user);
     List<User> users = userService.findAll();
     model.addAttribute("users", users);

@@ -1,11 +1,15 @@
 package com.epam.starbun.todolist.controller;
 
+import com.epam.starbun.todolist.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class RootController {
+
+  UserService userService;
 
   @GetMapping({"", "/"})
   public String index() {
@@ -14,6 +18,12 @@ public class RootController {
 
   @GetMapping({"/login"})
   public String loginPage(Model model) {
+    return "login";
+  }
+
+  //TODO Удаление кук
+  @GetMapping({"/logout"})
+  public String logout(Model model) {
     return "login";
   }
 
@@ -28,7 +38,8 @@ public class RootController {
   }
 
   @GetMapping("/new-note")
-  public String newNote() {
+  public String newNote(Model model, @CookieValue("authUser") String authUser) {
+    model.addAttribute("currentUser", authUser);
     return "new-note";
   }
 

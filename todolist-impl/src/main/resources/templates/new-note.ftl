@@ -20,11 +20,11 @@
 
   </div>
   <div class="d-flex flex-column">
-    <form id="f1" name="saveNote">
+    <form id="f1" name="saveNote" class="d-flex flex-column">
         <@ui.formInput id="f1i1" name="title" label="Заголовок"/>
       <label for="f1i2">Заметка</label>
-      <textarea id="f1i2" name="body" cols="60" rows="5"></textarea>
-      <@ui.formInput id="f1i3" name="endDate" label="Дата завершения" type="date"/>
+      <textarea id="f1i2" name="body" cols="60" rows="5"></textarea> <br/>
+        <@ui.formInput id="f1i3" name="endDate" label="Дата завершения" type="date"/>
       <button formaction="/new-note/save" formmethod="post" type="submit" class="btn btn-primary">Сохранить</button>
     </form>
   </div>

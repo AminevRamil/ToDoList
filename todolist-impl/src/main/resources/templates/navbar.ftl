@@ -31,7 +31,7 @@
         </li>
       </ul>
       <p>Current User: ${currentUser!"N/A"}</p>
-      <button class="btn btn-outline-success" type="submit">Поиск</button>
+      <a class="btn btn-outline-success" href="/logout">Выход</a>
     </div>
   </div>
 </nav>

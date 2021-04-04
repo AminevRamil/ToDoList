@@ -28,6 +28,7 @@ public class LoginResource {
     User user = userService.authorizeUser(authRequest);
     Cookie authCookie = new Cookie("authUser", user.getNickname());
     authCookie.setMaxAge(3600);
+    authCookie.setPath("/");
     response.addCookie(authCookie);
     return new RequestResponse("Успешно", "Авторизация успешна", "Куки сохранены");
   }

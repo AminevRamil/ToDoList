@@ -30,11 +30,13 @@ public class LoginController {
   }
 
   @PostMapping("/logon")
-  public String authorize(Model model, @Valid @ModelAttribute("authData") AuthRequest authData, HttpServletResponse response) {
+  public String authorize(Model model, @Valid @ModelAttribute("authData") AuthRequest authData,
+                          HttpServletResponse response) {
     User user = userService.authorizeUser(authData);
     Cookie authUser = new Cookie("authUser", user.getNickname());
     model.addAttribute("currentUser", user.getNickname());
     authUser.setMaxAge(3600);
+    authUser.setPath("/");
     response.addCookie(authUser);
     return "main";
   }

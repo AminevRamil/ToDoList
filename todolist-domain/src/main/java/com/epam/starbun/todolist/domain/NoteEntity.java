@@ -12,6 +12,7 @@ import java.util.List;
 public class NoteEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(cascade = CascadeType.ALL, targetEntity = AttachmentEntity.class)
