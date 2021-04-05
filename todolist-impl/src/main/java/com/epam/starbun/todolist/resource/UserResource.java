@@ -1,7 +1,7 @@
 package com.epam.starbun.todolist.resource;
 
 import com.epam.starbun.todolist.annotation.CheckLogin;
-import com.epam.starbun.todolist.dto.User;
+import com.epam.starbun.todolist.dto.UserDto;
 import com.epam.starbun.todolist.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -22,25 +22,25 @@ public class UserResource {
 
   @CheckLogin
   @GetMapping("/{id}")
-  public User getById(@PathVariable("id") Long userId) {
+  public UserDto getById(@PathVariable("id") Long userId) {
     return userService.findById(userId);
   }
 
   @CheckLogin
   @GetMapping("/")
-  public List<User> getUsers(@CookieValue(name = "authUser", required = false) Cookie authCookie) {
+  public List<UserDto> getUsers(@CookieValue(name = "authUser", required = false) Cookie authCookie) {
     return userService.findAll();
   }
 
   @CheckLogin
   @PostMapping("/")
-  public User addUser(@RequestBody @Validated User user, @CookieValue(name = "authUser", required = false) Cookie authCookie) {
+  public UserDto addUser(@RequestBody @Validated UserDto user, @CookieValue(name = "authUser", required = false) Cookie authCookie) {
     return userService.save(user);
   }
 
   @CheckLogin
   @PutMapping("/")
-  public User updateUser(@Validated User user, @CookieValue(name = "authUser", required = false) Cookie authCookie) {
+  public UserDto updateUser(@Validated UserDto user, @CookieValue(name = "authUser", required = false) Cookie authCookie) {
     return userService.update(user);
   }
 

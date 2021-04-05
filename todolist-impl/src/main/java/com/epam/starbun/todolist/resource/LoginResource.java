@@ -2,7 +2,7 @@ package com.epam.starbun.todolist.resource;
 
 import com.epam.starbun.todolist.dto.AuthRequest;
 import com.epam.starbun.todolist.dto.RequestResponse;
-import com.epam.starbun.todolist.dto.User;
+import com.epam.starbun.todolist.dto.UserDto;
 import com.epam.starbun.todolist.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class LoginResource {
 
   @PostMapping("/login")
   public RequestResponse login(@Validated @RequestBody AuthRequest authRequest, HttpServletResponse response) {
-    User user = userService.authorizeUser(authRequest);
+    UserDto user = userService.authorizeUser(authRequest);
     Cookie authCookie = new Cookie("authUser", user.getNickname());
     authCookie.setMaxAge(3600);
     authCookie.setPath("/");

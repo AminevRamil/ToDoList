@@ -1,7 +1,7 @@
 package com.epam.starbun.todolist.controller;
 
 
-import com.epam.starbun.todolist.dto.User;
+import com.epam.starbun.todolist.dto.UserDto;
 import com.epam.starbun.todolist.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +23,13 @@ public class UserController {
 
   @GetMapping({"", "/"})
   public String index(Model model, @CookieValue(value = "lastSearch", required = false) Cookie searchCookie) {
-    List<User> users = userService.findAll();
+    List<UserDto> users = userService.findAll();
     model.addAttribute("users", users);
     //Проверка наличия куки
     if (searchCookie != null) {
       String searchName = searchCookie.getValue();
       model.addAttribute("lastSearch", searchName);
-      List<User> userList = userService.findByNickname(searchName);
+      List<UserDto> userList = userService.findByNickname(searchName);
       model.addAttribute("lastSearch", searchName);
       model.addAttribute("users", userList);
     }
@@ -38,7 +38,7 @@ public class UserController {
 
   @PostMapping(value = "/search")
   public String searchUser(Model model, @RequestParam(defaultValue = "") String searchName, HttpServletResponse response) {
-    List<User> userList = userService.findByNickname(searchName);
+    List<UserDto> userList = userService.findByNickname(searchName);
     model.addAttribute("lastSearch", searchName);
     model.addAttribute("users", userList);
     //запись последнего поиска в куки
@@ -53,15 +53,15 @@ public class UserController {
   public String resetCookie(Model model, @CookieValue(value = "lastSearch", required = false) Cookie searchCookie, HttpServletResponse response) {
     searchCookie.setMaxAge(0);
     response.addCookie(searchCookie);
-    List<User> users = userService.findAll();
+    List<UserDto> users = userService.findAll();
     model.addAttribute("users", users);
     return "user";
   }
 
   @PostMapping(value = "/save")
-  public String save(Model model, /*@Validated*/ @ModelAttribute("user") User user) {
+  public String save(Model model, /*@Validated*/ @ModelAttribute("user") UserDto user) {
     userService.save(user);
-    List<User> users = userService.findAll();
+    List<UserDto> users = userService.findAll();
     model.addAttribute("users", users);
     return "user";
   }

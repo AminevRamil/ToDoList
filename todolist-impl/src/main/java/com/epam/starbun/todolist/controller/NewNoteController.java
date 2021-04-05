@@ -1,7 +1,7 @@
 package com.epam.starbun.todolist.controller;
 
-import com.epam.starbun.todolist.dto.Note;
-import com.epam.starbun.todolist.dto.User;
+import com.epam.starbun.todolist.dto.NoteDto;
+import com.epam.starbun.todolist.dto.UserDto;
 import com.epam.starbun.todolist.service.NoteService;
 import com.epam.starbun.todolist.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +24,9 @@ public class NewNoteController {
   private final UserService userService;
 
   @PostMapping("/save")
-  public String saveNote(Model model, @ModelAttribute("saveNote") Note note, @CookieValue(name = "authUser") Cookie authUser) {
+  public String saveNote(Model model, @ModelAttribute("saveNote") NoteDto note, @CookieValue(name = "authUser") Cookie authUser) {
     //Cookie authUser = getCookieByName(request, "authUser");
-    User user = userService.findOneByNickname(authUser.getValue());
+    UserDto user = userService.findOneByNickname(authUser.getValue());
     note.getUserList().add(user);
     noteService.save(note);
     model.addAttribute("currentUser", authUser.getValue());

@@ -1,7 +1,7 @@
 package com.epam.starbun.todolist.service;
 
 import com.epam.starbun.todolist.dto.AuthRequest;
-import com.epam.starbun.todolist.dto.User;
+import com.epam.starbun.todolist.dto.UserDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,19 +9,19 @@ import java.util.List;
 @Service
 public interface UserService {
 
-  List<User> findAll();
+  List<UserDto> findAll();
 
-  User save(User user);
+  UserDto save(UserDto user);
 
-  List<User> findByNickname(String searchName);
+  List<UserDto> findByNickname(String searchName);
 
-  User findById(Long id);
+  UserDto findById(Long id);
 
-  User findOneByNickname(String nickname);
+  UserDto findOneByNickname(String nickname);
 
   void deleteUserById(Long userId);
 
-  User update(User user);
+  UserDto update(UserDto user);
 
-  User authorizeUser(AuthRequest authData);
+  UserDto authorizeUser(AuthRequest authData);
 }

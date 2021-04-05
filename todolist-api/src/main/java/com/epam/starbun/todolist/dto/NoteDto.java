@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Note {
+public class NoteDto {
 
-  private List<User> userList = new ArrayList<>();
+  private List<UserDto> userList = new ArrayList<>();
 
-  private List<Attachment> attachmentList = new ArrayList<>();
+  private List<AttachmentDto> attachmentList = new ArrayList<>();
 
   private String title;
   private String body;

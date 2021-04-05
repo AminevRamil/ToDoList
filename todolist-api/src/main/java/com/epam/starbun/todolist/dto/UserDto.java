@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 @Data
-public class User {
+public class UserDto {
 
   private Long id = 0L;
   @JsonAlias("user")

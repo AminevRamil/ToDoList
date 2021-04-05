@@ -1,7 +1,7 @@
 package com.epam.starbun.todolist.controller;
 
 import com.epam.starbun.todolist.dto.AuthRequest;
-import com.epam.starbun.todolist.dto.User;
+import com.epam.starbun.todolist.dto.UserDto;
 import com.epam.starbun.todolist.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class LoginController {
   private final UserService userService;
 
   @PostMapping("/save")
-  public String save(Model model, @Valid @ModelAttribute("user") User user) {
+  public String save(Model model, @Valid @ModelAttribute("user") UserDto user) {
     userService.save(user);
     // TODO заменить на модальное окно
     model.addAttribute("result", "Регистрация успешна");
@@ -32,7 +32,7 @@ public class LoginController {
   @PostMapping("/logon")
   public String authorize(Model model, @Valid @ModelAttribute("authData") AuthRequest authData,
                           HttpServletResponse response) {
-    User user = userService.authorizeUser(authData);
+    UserDto user = userService.authorizeUser(authData);
     Cookie authUser = new Cookie("authUser", user.getNickname());
     model.addAttribute("currentUser", user.getNickname());
     authUser.setMaxAge(3600);
