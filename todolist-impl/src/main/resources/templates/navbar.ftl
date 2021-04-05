@@ -1,4 +1,5 @@
 <#import "ui.ftl" as ui/>
+<#import "spring.ftl" as spring/>
 
 <!DOCTYPE html>
 <head>
@@ -18,20 +19,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/main">Главная</a>
+          <a class="nav-link active" aria-current="page" href="/main"><@spring.message 'navbar.main'/></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/new-note">Новая заметка</a>
+          <a class="nav-link active" aria-current="page" href="/new-note"><@spring.message 'navbar.new-note'/></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/my-notes">Мои заметки</a>
+          <a class="nav-link active" aria-current="page" href="/my-notes"><@spring.message 'navbar.my-notes'/></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/setting">Настройки</a>
+          <a class="nav-link active" aria-current="page" href="/setting"><@spring.message 'navbar.settings'/></a>
         </li>
       </ul>
-      <p>Current User: ${currentUser!"N/A"}</p>
-      <a class="btn btn-outline-success" href="/logout">Выход</a>
+      <p><@spring.message 'navbar.user'/> ${currentUser!"N/A"}</p>
+      <a class="btn btn-outline-success" href="/logout"><@spring.message 'navbar.logout'/></a>
     </div>
   </div>
 </nav>

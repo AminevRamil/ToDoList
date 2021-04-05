@@ -1,5 +1,6 @@
 <#import "ui.ftl" as ui/>
 <#include "navbar.ftl">
+<#import "spring.ftl" as spring/>
 
 <!DOCTYPE html>
 <head>
@@ -8,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-  <title>My notes page</title>
+  <title><@spring.message 'my-notes.page'/></title>
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
@@ -16,6 +17,6 @@
         crossorigin="anonymous"></script>
 
 <div class="container">
-  <p>My notes page?</p>
+  <p><@spring.message 'my-notes.page'/></p>
 </div>
 </body>

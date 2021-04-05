@@ -1,5 +1,6 @@
 <#import "ui.ftl" as ui/>
 <#include "navbar.ftl">
+<#import "spring.ftl" as spring/>
 
 <!DOCTYPE html>
 <head>
@@ -8,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-  <title>New Note page</title>
+  <title><@spring.message 'new-note.page'/></title>
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
@@ -21,10 +22,10 @@
   </div>
   <div class="d-flex flex-column">
     <form id="f1" name="saveNote" class="d-flex flex-column">
-        <@ui.formInput id="f1i1" name="title" label="Заголовок"/>
-      <label for="f1i2">Заметка</label>
+        <@ui.formInput id="f1i1" name="title" localizedLabel="new-note.title"/>
+      <label for="f1i2"><@spring.message 'new-note.body'/></label>
       <textarea id="f1i2" name="body" cols="60" rows="5"></textarea> <br/>
-        <@ui.formInput id="f1i3" name="endDate" label="Дата завершения" type="date"/>
+        <@ui.formInput id="f1i3" name="endDate" localizedLabel="new-note.end-date" type="date"/>
       <button formaction="/new-note/save" formmethod="post" type="submit" class="btn btn-primary">Сохранить</button>
     </form>
   </div>

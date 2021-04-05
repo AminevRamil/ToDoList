@@ -1,5 +1,6 @@
 <#import "ui.ftl" as ui/>
 <#include "navbar.ftl">
+<#import "spring.ftl" as spring/>
 
 <!DOCTYPE html>
 <head>
@@ -8,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-  <title>Users page</title>
+  <title><@spring.message 'user.page'/></title>
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
@@ -19,12 +20,12 @@
   <div class="row">
     <div class="col">
       <fieldset>
-        <legend>Добавить пользователя</legend>
+        <legend><@spring.message 'user.add-user'/></legend>
         <form name="user" action="/user/save" method="POST">
-            <@ui.formInput id="t1" name="nickname" label="Никнейкм"/>
-            <@ui.formInput id="t2" name="email" label="Е-почта"/>
-            <@ui.formInput id="t3" name="password" label="Пароль" type="password"/>
-          <input class="btn btn-primary" type="submit" value="Save"/>
+            <@ui.formInput id="t1" name="nickname" localizedLabel="user.nickname"/>
+            <@ui.formInput id="t2" name="email" localizedLabel="user.email"/>
+            <@ui.formInput id="t3" name="password" localizedLabel="user.password" type="password"/>
+            <@ui.inputButton "user.save"/>
         </form>
       </fieldset>
     </div>
@@ -39,12 +40,12 @@
 
   <div>
     <fieldset>
-      <legend>Поиск по нику</legend>
-      <form name="searchForm" action="search">
-          <@ui.formInput id="t4" name="searchName" label="Поиск"/>
-        <input class="btn btn-primary" type="submit" value="Search" formmethod="POST"/>
+      <legend><@spring.message 'user.user-search'/></legend>
+      <form name="searchForm" action="search" method="POST">
+          <@ui.formInput id="t4" name="searchName" localizedLabel="user.search"/>
+          <@ui.inputButton "user.search"/>
       </form>
-      <form name="resetButton" action="reset">
+      <form name="resetButton" action="reset" method="POST">
         <input class="btn btn-primary" type="submit" value="Reset" formmethod="POST"/>
       </form>
 
@@ -52,31 +53,31 @@
   </div>
 
     <#if lastSearch??>
-      <p>Поиск для: ${lastSearch}</p>
+      <p><@spring.message 'user.search-for'/> ${lastSearch}</p>
     <#else></#if>
-  <#if users??>
-    <div>
-      <table class="table">
-        <thead>
-        <tr>
-          <th scope="col">id</th>
-          <th scope="col">nickname</th>
-          <th scope="col">password</th>
-          <th scope="col">email</th>
-        </tr>
-        </thead>
-        <tbody>
-        <#list users as user>
+    <#if users??>
+      <div>
+        <table class="table">
+          <thead>
           <tr>
-            <td>${user.id}</td>
-            <td>${user.nickname}</td>
-            <td>${user.password}</td>
-            <td>${user.email}</td>
+            <th scope="col">id</th>
+            <th scope="col">nickname</th>
+            <th scope="col">password</th>
+            <th scope="col">email</th>
           </tr>
-        </#list>
-        </tbody>
-      </table>
-    </div>
-  <#else></#if>
+          </thead>
+          <tbody>
+          <#list users as user>
+            <tr>
+              <td>${user.id}</td>
+              <td>${user.nickname}</td>
+              <td>${user.password}</td>
+              <td>${user.email}</td>
+            </tr>
+          </#list>
+          </tbody>
+        </table>
+      </div>
+    <#else></#if>
 </div>
 </body>
