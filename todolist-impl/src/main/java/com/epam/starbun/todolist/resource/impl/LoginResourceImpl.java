@@ -18,7 +18,6 @@ import javax.validation.Validator;
 @RestController
 @RequestMapping("api")
 @RequiredArgsConstructor
-// TODO Сделать интерфейсы и вынести в апи модуль
 public class LoginResourceImpl implements LoginResource {
 
   private final UserService userService;
