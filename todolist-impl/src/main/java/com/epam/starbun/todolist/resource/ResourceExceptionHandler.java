@@ -1,4 +1,4 @@
-package com.epam.starbun.todolist.aspect;
+package com.epam.starbun.todolist.resource;
 
 
 import com.epam.starbun.todolist.dto.RequestResponse;
@@ -10,10 +10,11 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+// TODO посмотреть экстенд от ResponseEntityExceptionHandler
 @RestControllerAdvice(basePackages = "com.epam.starbun.todolist.resource")
 public class ResourceExceptionHandler {
 
-  @ExceptionHandler
+  @ExceptionHandler(RequestException.class)
   public ResponseEntity<RequestResponse> handleRestRequestException(RequestException e) {
     RequestResponse errorResponse = new RequestResponse();
     errorResponse.setStatus("Ошибка");
@@ -21,14 +22,21 @@ public class ResourceExceptionHandler {
     return new ResponseEntity<>(errorResponse, e.getStatus());
   }
 
-  @ExceptionHandler
+  @ExceptionHandler(BindException.class)
   public ResponseEntity<RequestResponse> handleValidationException(BindException e) {
     String[] violations = e.getFieldErrors().stream()
-      .map(DefaultMessageSourceResolvable::getDefaultMessage)
-      .toArray(String[]::new);
+        .map(DefaultMessageSourceResolvable::getDefaultMessage)
+        .toArray(String[]::new);
     RequestResponse errorResponse = new RequestResponse();
     errorResponse.setStatus("Ошибка");
     errorResponse.setResults(violations);
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
   }
+
+  // TODO Проверить
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<RequestResponse> handleValidationException(Exception e) {
+    return null;
+  }
+
 }

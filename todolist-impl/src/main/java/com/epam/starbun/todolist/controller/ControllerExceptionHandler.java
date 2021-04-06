@@ -1,17 +1,16 @@
-package com.epam.starbun.todolist.aspect;
+package com.epam.starbun.todolist.controller;
 
 import com.epam.starbun.todolist.exception.RequestException;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MissingRequestCookieException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @ControllerAdvice(basePackages = "com.epam.starbun.todolist.controller")
 public class ControllerExceptionHandler {
