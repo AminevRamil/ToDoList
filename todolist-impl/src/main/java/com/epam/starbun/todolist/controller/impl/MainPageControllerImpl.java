@@ -1,5 +1,6 @@
-package com.epam.starbun.todolist.controller;
+package com.epam.starbun.todolist.controller.impl;
 
+import com.epam.starbun.todolist.controller.MainPageController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/main")
 @RequiredArgsConstructor
-public class MainPageController {
+public class MainPageControllerImpl implements MainPageController {
 
 }

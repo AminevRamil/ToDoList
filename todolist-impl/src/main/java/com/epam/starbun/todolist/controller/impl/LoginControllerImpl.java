@@ -1,5 +1,6 @@
-package com.epam.starbun.todolist.controller;
+package com.epam.starbun.todolist.controller.impl;
 
+import com.epam.starbun.todolist.controller.LoginController;
 import com.epam.starbun.todolist.dto.AuthRequest;
 import com.epam.starbun.todolist.dto.UserDto;
 import com.epam.starbun.todolist.service.UserService;
@@ -17,10 +18,11 @@ import javax.validation.Valid;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/login")
-public class LoginController {
+public class LoginControllerImpl implements LoginController {
 
   private final UserService userService;
 
+  @Override
   @PostMapping("/save")
   public String save(Model model, @Valid @ModelAttribute("user") UserDto user) {
     userService.save(user);
@@ -29,6 +31,7 @@ public class LoginController {
     return "login";
   }
 
+  @Override
   @PostMapping("/logon")
   public String authorize(Model model, @Valid @ModelAttribute("authData") AuthRequest authData,
                           HttpServletResponse response) {

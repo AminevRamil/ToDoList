@@ -1,4 +1,4 @@
-package com.epam.starbun.todolist.controller;
+package com.epam.starbun.todolist.controller.impl;
 
 
 import com.epam.starbun.todolist.dto.UserDto;
@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/user")
-public class UserController {
+public class UserControllerImpl {
 
   private final UserService userService;
 

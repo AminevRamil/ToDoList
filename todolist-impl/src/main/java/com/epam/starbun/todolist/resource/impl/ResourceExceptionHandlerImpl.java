@@ -1,4 +1,4 @@
-package com.epam.starbun.todolist.resource;
+package com.epam.starbun.todolist.resource.impl;
 
 
 import com.epam.starbun.todolist.dto.RequestResponse;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 // TODO посмотреть экстенд от ResponseEntityExceptionHandler
 @RestControllerAdvice(basePackages = "com.epam.starbun.todolist.resource")
-public class ResourceExceptionHandler {
+public class ResourceExceptionHandlerImpl {
 
   @ExceptionHandler(RequestException.class)
   public ResponseEntity<RequestResponse> handleRestRequestException(RequestException e) {
