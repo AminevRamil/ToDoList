@@ -26,7 +26,7 @@
       <label for="f1i2"><@spring.message 'new-note.body'/></label>
       <textarea id="f1i2" name="body" cols="60" rows="5"></textarea> <br/>
         <@ui.formInput id="f1i3" name="endDate" localizedLabel="new-note.end-date" type="date"/>
-      <button formaction="/new-note/save" formmethod="post" type="submit" class="btn btn-primary">Сохранить</button>
+      <button formaction="/new-note/save" formmethod="post" type="submit" class="btn btn-primary"><@spring.message 'new-note.save'/></button>
     </form>
   </div>
   <div class="col">
