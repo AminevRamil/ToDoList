@@ -26,7 +26,7 @@ public class LoginCheckAspect {
 
   @Around(value = "beforeCallAtCheckLogin(authCookie)", argNames = "pjp,authCookie")
   public Object aroundCallAt(ProceedingJoinPoint pjp, Cookie authCookie) {
-    if (authCookie == null || userService.findOneByNickname(authCookie.getValue()) == null) {
+    if (authCookie == null || userService.findByNickname(authCookie.getValue()) == null) {
       RequestException re = new RequestException("Вы не залогинены");
       re.setStatus(HttpStatus.UNAUTHORIZED);
       throw re;

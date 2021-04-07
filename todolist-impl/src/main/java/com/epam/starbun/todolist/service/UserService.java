@@ -1,27 +1,26 @@
 package com.epam.starbun.todolist.service;
 
+import com.epam.starbun.todolist.domain.UserEntity;
 import com.epam.starbun.todolist.dto.AuthRequest;
-import com.epam.starbun.todolist.dto.UserDto;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
 
-  List<UserDto> findAll();
+  List<UserEntity> findAll();
 
-  UserDto save(UserDto user);
+  UserEntity save(UserEntity user);
 
-  List<UserDto> findByNickname(String searchName);
+  List<UserEntity> findByNicknameLike(String searchName);
 
-  UserDto findById(Long id);
+  UserEntity findById(Long id);
 
-  UserDto findOneByNickname(String nickname);
+  UserEntity findByNickname(String nickname);
 
   void deleteUserById(Long userId);
 
-  UserDto update(UserDto user);
+  UserEntity update(UserEntity user);
 
-  UserDto authorizeUser(AuthRequest authData);
+  UserEntity authorizeUser(AuthRequest authData);
 }

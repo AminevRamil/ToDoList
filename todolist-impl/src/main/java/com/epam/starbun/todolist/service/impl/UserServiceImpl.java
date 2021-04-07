@@ -2,17 +2,14 @@ package com.epam.starbun.todolist.service.impl;
 
 import com.epam.starbun.todolist.domain.UserEntity;
 import com.epam.starbun.todolist.dto.AuthRequest;
-import com.epam.starbun.todolist.dto.UserDto;
 import com.epam.starbun.todolist.exception.RequestException;
 import com.epam.starbun.todolist.repository.UserRepository;
 import com.epam.starbun.todolist.service.UserService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import ma.glasnost.orika.MapperFacade;
-import org.springframework.stereotype.Service;
-
 import java.time.OffsetDateTime;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
@@ -21,22 +18,18 @@ public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
 
-  private final MapperFacade mapperFacade;
-
   @Override
-  public List<UserDto> findAll() {
+  public List<UserEntity> findAll() {
     List<UserEntity> userEntities = userRepository.findAll();
-    List<UserDto> users = mapperFacade.mapAsList(userEntities, UserDto.class);
-    return users;
+    return userEntities;
   }
 
   @Override
-  public UserDto save(UserDto user) {
-    UserEntity userEntity = mapperFacade.map(user, UserEntity.class);
-    userEntity.setCreationDate(OffsetDateTime.now());
+  public UserEntity save(UserEntity user) {
+    user.setCreationDate(OffsetDateTime.now());
     try {
-      UserEntity savedUserEntity = userRepository.save(userEntity);
-      return mapperFacade.map(savedUserEntity, UserDto.class);
+      UserEntity savedUserEntity = userRepository.save(user);
+      return savedUserEntity;
     } catch (Exception e) {
       log.error(e.getMessage(), e);
       return null;
@@ -44,24 +37,24 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public List<UserDto> findByNickname(String searchName) {
+  public List<UserEntity> findByNicknameLike(String searchName) {
     List<UserEntity> userEntities = userRepository.findByNicknameLikeIgnoreCase(searchName.toLowerCase());
-    return mapperFacade.mapAsList(userEntities, UserDto.class);
+    return userEntities;
   }
 
   @Override
-  public UserDto findById(Long id) {
+  public UserEntity findById(Long id) {
     UserEntity userEntity = userRepository.getOne(id);
-    return mapperFacade.map(userEntity, UserDto.class);
+    return userEntity;
   }
 
   @Override
-  public UserDto findOneByNickname(String nickname) {
+  public UserEntity findByNickname(String nickname) {
     List<UserEntity> userEntityList = userRepository.findByNicknameLikeIgnoreCase(nickname.toLowerCase());
     if (userEntityList.isEmpty()) {
       return null;
     } else {
-      return mapperFacade.map(userEntityList.get(0), UserDto.class);
+      return userEntityList.get(0);
     }
   }
 
@@ -71,7 +64,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserDto update(UserDto user) {
+  public UserEntity update(UserEntity user) {
     UserEntity userEntity = userRepository.findById(user.getId()).get();
     userEntity.setEmail(user.getEmail());
     userEntity.setPassword(user.getPassword());
@@ -81,8 +74,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserDto authorizeUser(AuthRequest authData) {
-    UserDto user = findOneByNickname(authData.getLogin());
+  public UserEntity authorizeUser(AuthRequest authData) {
+    UserEntity user = findByNickname(authData.getLogin());
     if (user == null || !user.getPassword().equals(authData.getPassword())) {
       throw new RequestException("Неверный логин или пароль");
     }

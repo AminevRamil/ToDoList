@@ -1,11 +1,11 @@
 package com.epam.starbun.todolist.service;
 
-import com.epam.starbun.todolist.dto.NoteDto;
+import com.epam.starbun.todolist.domain.NoteEntity;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface NoteService {
 
-  NoteDto save(NoteDto note);
+  NoteEntity save(NoteEntity note);
 
 }
