@@ -1,10 +1,18 @@
 package com.epam.starbun.todolist.domain;
 
-import lombok.Data;
-
-import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import lombok.Data;
 
 @Data
 @Entity
@@ -19,11 +27,8 @@ public class NoteEntity {
     @JoinColumn(name = "note_id")
     private List<AttachmentEntity> attachmentList;
 
-    @OneToMany(targetEntity = UserEntity.class, orphanRemoval = true)
-    @JoinTable(name = "users_note",
-        joinColumns = @JoinColumn(name = "note_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    private List<UserEntity> userEntityList;
+    @ManyToMany(targetEntity = UserEntity.class, mappedBy = "noteList")
+    private List<UserEntity> userEntityList = new ArrayList<>();
 
     private String title;
     private String body;
