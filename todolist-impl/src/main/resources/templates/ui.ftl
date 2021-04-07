@@ -23,3 +23,11 @@
 <#macro card>
 
 </#macro>
+
+<#function message code text=''>
+    <#if text != ''>
+        <#return springMacroRequestContext.getMessage(code, text)>
+    <#else>
+        <#return springMacroRequestContext.getMessage(code)>
+    </#if>
+</#function>

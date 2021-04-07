@@ -25,7 +25,7 @@
             <@ui.formInput id="t1" name="nickname" localizedLabel="user.nickname"/>
             <@ui.formInput id="t2" name="email" localizedLabel="user.email"/>
             <@ui.formInput id="t3" name="password" localizedLabel="user.password" type="password"/>
-            <@ui.inputButton "user.save"/>
+            <@ui.inputButton "${ui.message('user.save')}"/>
         </form>
       </fieldset>
     </div>
@@ -43,10 +43,10 @@
       <legend><@spring.message 'user.user-search'/></legend>
       <form name="searchForm" action="search" method="POST">
           <@ui.formInput id="t4" name="searchName" localizedLabel="user.search"/>
-          <@ui.inputButton "user.search"/>
+          <@ui.inputButton "${ui.message('user.search')}"/>
       </form>
       <form name="resetButton" action="reset" method="POST">
-        <input class="btn btn-primary" type="submit" value="Reset" formmethod="POST"/>
+        <input class="btn btn-primary" type="submit" value="${ui.message('user.reset')}" formmethod="POST"/>
       </form>
 
     </fieldset>

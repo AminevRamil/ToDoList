@@ -18,7 +18,7 @@
 
 <div class="container">
   <p><@spring.message 'settings.page'/></p>
-  <a href="${'?locale=en'}">EN</a>
-  <a href="${'?locale=ru'}">RU</a>
+  <a href="${'?locale=en_US'}">EN</a>
+  <a href="${'?locale=ru_RU'}">RU</a>
 </div>
 </body>
