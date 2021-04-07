@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,7 +28,10 @@ public class NoteEntity {
     @JoinColumn(name = "note_id")
     private List<AttachmentEntity> attachmentList;
 
-    @ManyToMany(targetEntity = UserEntity.class, mappedBy = "noteList")
+    @ManyToMany(targetEntity = UserEntity.class)
+    @JoinTable(name = "users_note",
+        joinColumns = @JoinColumn(name = "note_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private List<UserEntity> userEntityList = new ArrayList<>();
 
     private String title;
