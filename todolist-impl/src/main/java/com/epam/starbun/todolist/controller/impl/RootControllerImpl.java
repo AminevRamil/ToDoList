@@ -1,7 +1,13 @@
 package com.epam.starbun.todolist.controller.impl;
 
 import com.epam.starbun.todolist.controller.RootController;
+import com.epam.starbun.todolist.domain.NoteEntity;
+import com.epam.starbun.todolist.domain.UserEntity;
+import com.epam.starbun.todolist.dto.NoteDto;
+import com.epam.starbun.todolist.service.NoteService;
 import com.epam.starbun.todolist.service.UserService;
+import lombok.RequiredArgsConstructor;
+import ma.glasnost.orika.MapperFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -9,11 +15,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class RootControllerImpl implements RootController {
 
-  UserService userService;
+  private final UserService userService;
+
+  private final NoteService noteService;
+
+  private final MapperFacade mapperFacade;
 
   @Override
   @GetMapping({"", "/"})
@@ -60,7 +72,12 @@ public class RootControllerImpl implements RootController {
   @Override
   @GetMapping("/my-notes")
   public String myNotes(Model model, @CookieValue("authUser") String authUser) {
-    model.addAttribute("currentUser", authUser);
+    UserEntity user = userService.findByNickname(authUser);
+
+    model.addAttribute("currentUser", user.getNickname());
+
+    List<NoteEntity> notesOfUser = noteService.getNotesOfUser(user);
+    model.addAttribute("notes", mapperFacade.mapAsList(notesOfUser, NoteDto.class));
     return "my-notes";
   }
 

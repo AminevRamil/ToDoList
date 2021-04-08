@@ -6,8 +6,6 @@ import com.epam.starbun.todolist.domain.UserEntity;
 import com.epam.starbun.todolist.dto.NoteDto;
 import com.epam.starbun.todolist.service.NoteService;
 import com.epam.starbun.todolist.service.UserService;
-import java.util.List;
-import javax.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.stereotype.Controller;
@@ -16,6 +14,9 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.Cookie;
+import java.util.List;
 
 @Controller
 @RequestMapping("/new-note")
@@ -38,7 +39,7 @@ public class NewNoteControllerImpl implements NewNoteController {
     noteEntity.getUserEntityList().add(user);
     noteService.save(noteEntity);
 
-    model.addAttribute("currentUser", authUser.getValue());
+    model.addAttribute("currentUser", user.getNickname());
 
     List<NoteEntity> notesOfUser = noteService.getNotesOfUser(user);
     model.addAttribute("notes", mapperFacade.mapAsList(notesOfUser, NoteDto.class));
