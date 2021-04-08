@@ -20,8 +20,13 @@
   </table>
 </#macro>
 
-<#macro card>
-
+<#macro card note>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">${note.title}</h5>
+      <p class="card-text">${note.body}</p>
+    </div>
+  </div>
 </#macro>
 
 <#function message code text=''>

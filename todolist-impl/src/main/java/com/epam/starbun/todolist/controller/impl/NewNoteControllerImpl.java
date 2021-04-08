@@ -6,6 +6,7 @@ import com.epam.starbun.todolist.domain.UserEntity;
 import com.epam.starbun.todolist.dto.NoteDto;
 import com.epam.starbun.todolist.service.NoteService;
 import com.epam.starbun.todolist.service.UserService;
+import java.util.List;
 import javax.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import ma.glasnost.orika.MapperFacade;
@@ -36,7 +37,11 @@ public class NewNoteControllerImpl implements NewNoteController {
     NoteEntity noteEntity = mapperFacade.map(note, NoteEntity.class);
     noteEntity.getUserEntityList().add(user);
     noteService.save(noteEntity);
+
     model.addAttribute("currentUser", authUser.getValue());
+
+    List<NoteEntity> notesOfUser = noteService.getNotesOfUser(user);
+    model.addAttribute("notes", mapperFacade.mapAsList(notesOfUser, NoteDto.class));
     return "my-notes";
   }
 }

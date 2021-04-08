@@ -17,6 +17,8 @@
         crossorigin="anonymous"></script>
 
 <div class="container">
-  <p><@spring.message 'my-notes.page'/></p>
+  <#list notes as note>
+    <@ui.card note/>
+   </#list>
 </div>
 </body>
