@@ -2,7 +2,6 @@ package com.epam.starbun.todolist.aspect;
 
 import com.epam.starbun.todolist.exception.RequestException;
 import com.epam.starbun.todolist.service.UserService;
-import javax.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -11,6 +10,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.Cookie;
 
 @Slf4j
 @Aspect
@@ -34,10 +35,10 @@ public class LoginCheckAspect {
     try {
       return pjp.proceed();
     } catch (RequestException re) {
-      log.error("Exception: {}", re);
+      log.warn("RequestException during LoginCheckAspect. Throwing to appropriate handler.");
       throw re; //Пробрасываю, чтоб бросаемые котроллером исключения обрабатывались *ExceptionHandlerAdvice
     } catch (Throwable throwable) {
-      throwable.printStackTrace();
+      log.error("Unexpected Exception during LoginCheckAspect: ", throwable);
       RequestException re = new RequestException("Внутренняя ошибка сервера. Свяжитесь с администратором");
       re.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
       throw re;
