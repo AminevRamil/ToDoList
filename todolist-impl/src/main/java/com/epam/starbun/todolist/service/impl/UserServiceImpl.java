@@ -20,32 +20,23 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<UserEntity> findAll() {
-    List<UserEntity> userEntities = userRepository.findAll();
-    return userEntities;
+    return userRepository.findAll();
   }
 
   @Override
   public UserEntity save(UserEntity user) {
     user.setCreationDate(OffsetDateTime.now());
-    try {
-      UserEntity savedUserEntity = userRepository.save(user);
-      return savedUserEntity;
-    } catch (Exception e) {
-      log.error(e.getMessage(), e);
-      return null;
-    }
+    return userRepository.save(user);
   }
 
   @Override
   public List<UserEntity> findByNicknameLike(String searchName) {
-    List<UserEntity> userEntities = userRepository.findByNicknameLikeIgnoreCase(searchName.toLowerCase());
-    return userEntities;
+    return userRepository.findByNicknameLikeIgnoreCase(searchName.toLowerCase());
   }
 
   @Override
   public UserEntity findById(Long id) {
-    UserEntity userEntity = userRepository.getOne(id);
-    return userEntity;
+    return userRepository.getOne(id);
   }
 
   @Override

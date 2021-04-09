@@ -8,18 +8,13 @@ import com.epam.starbun.todolist.service.UserService;
 import java.time.OffsetDateTime;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/login")
 public class LoginControllerImpl implements LoginController {
 
   private final MapperFacade mapperFacade;
@@ -27,8 +22,7 @@ public class LoginControllerImpl implements LoginController {
   private final UserService userService;
 
   @Override
-  @PostMapping("/save")
-  public String save(Model model, @Valid @ModelAttribute("user") UserDto user) {
+  public String save(Model model, UserDto user) {
     UserEntity userEntity = mapperFacade.map(user, UserEntity.class);
     userEntity.setCreationDate(OffsetDateTime.now());
     userService.save(userEntity);
@@ -37,9 +31,8 @@ public class LoginControllerImpl implements LoginController {
   }
 
   @Override
-  @PostMapping("/logon")
-  public String authorize(Model model, @Valid @ModelAttribute("authData") AuthRequest authData,
-                          HttpServletResponse response) {
+  public String authorize(Model model, AuthRequest authData,
+      HttpServletResponse response) {
     UserEntity user = userService.authorizeUser(authData);
     Cookie authUser = new Cookie("authUser", user.getNickname());
     model.addAttribute("currentUser", user.getNickname());
