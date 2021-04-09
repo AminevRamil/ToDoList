@@ -1,14 +1,15 @@
 package com.epam.starbun.todolist.dto;
 
 
-import lombok.Data;
-
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class NoteDto {
+
+  private Long id;
 
   private List<UserDto> userList = new ArrayList<>();
 

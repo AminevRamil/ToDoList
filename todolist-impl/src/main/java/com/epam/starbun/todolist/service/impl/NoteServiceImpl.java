@@ -30,4 +30,9 @@ public class NoteServiceImpl implements NoteService {
   public List<NoteEntity> getNotesOfUser(UserEntity user) {
     return noteRepository.findByUserId(user.getId());
   }
+
+  @Override
+  public void remove(Long id) {
+    noteRepository.deleteById(id);
+  }
 }
