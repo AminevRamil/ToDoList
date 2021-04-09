@@ -8,12 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 // TODO Попробовать с исключениями наследованными не от Exception, а от RuntimeException
 @Slf4j
 @ControllerAdvice(basePackages = "com.epam.starbun.todolist.resource")
-public class ResourceExceptionHandlerImpl extends ResponseEntityExceptionHandler {
+public class ResourceExceptionHandlerImpl {
 
   @ExceptionHandler(RequestException.class)
   public ResponseEntity<RequestResponse> handleRestRequestException(RequestException e) {
