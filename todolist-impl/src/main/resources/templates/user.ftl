@@ -37,24 +37,6 @@
         <#else></#if>
     </div>
   </div>
-
-  <div>
-    <fieldset>
-      <legend><@spring.message 'user.user-search'/></legend>
-      <form name="searchForm" action="search" method="POST">
-          <@ui.formInput id="t4" name="searchName" localizedLabel="user.search"/>
-          <@ui.inputButton "${ui.message('user.search')}"/>
-      </form>
-      <form name="resetButton" action="reset" method="POST">
-        <input class="btn btn-primary" type="submit" value="${ui.message('user.reset')}" formmethod="POST"/>
-      </form>
-
-    </fieldset>
-  </div>
-
-    <#if lastSearch??>
-      <p><@spring.message 'user.search-for'/> ${lastSearch}</p>
-    <#else></#if>
     <#if users??>
       <div>
         <table class="table">
