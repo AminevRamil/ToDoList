@@ -66,7 +66,7 @@ public class RootControllerImpl implements RootController {
 
     model.addAttribute("currentUser", user.getNickname());
 
-    List<NoteEntity> notesOfUser = noteService.getNotesOfUser(user);
+    List<NoteEntity> notesOfUser = noteService.getActiveNotesOfUser(user);
     model.addAttribute("notes", mapperFacade.mapAsList(notesOfUser, NoteDto.class));
     return "my-notes";
   }

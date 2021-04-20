@@ -24,12 +24,11 @@ public class MyNotesControllerImpl implements MyNotesController {
 
   @Override
   public String resolve(Model model, Long id, String authUser) {
-    // TODO Заменить удаление на резолв (исАктив). Добавить параметр в БД
-    noteService.remove(id);
+    noteService.deactivate(id);
 
     model.addAttribute("currentUser", authUser);
     UserEntity user = userService.findByNickname(authUser);
-    List<NoteEntity> notesOfUser = noteService.getNotesOfUser(user);
+    List<NoteEntity> notesOfUser = noteService.getActiveNotesOfUser(user);
     model.addAttribute("notes", mapperFacade.mapAsList(notesOfUser, NoteDto.class));
     return "my-notes";
   }

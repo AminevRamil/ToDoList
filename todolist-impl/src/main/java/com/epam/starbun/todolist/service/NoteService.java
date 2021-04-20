@@ -10,7 +10,7 @@ public interface NoteService {
 
   NoteEntity save(NoteEntity note);
 
-  List<NoteEntity> getNotesOfUser(UserEntity user);
+  List<NoteEntity> getActiveNotesOfUser(UserEntity user);
 
-  void remove(Long id);
+  void deactivate(Long id);
 }

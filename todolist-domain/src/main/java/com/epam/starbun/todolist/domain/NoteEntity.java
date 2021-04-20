@@ -37,6 +37,7 @@ public class NoteEntity {
     private String title;
     private String body;
     private OffsetDateTime endDate;
+    private Boolean isActive;
     private OffsetDateTime creationDate;
     private OffsetDateTime updateDate;
 }

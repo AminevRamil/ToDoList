@@ -18,6 +18,7 @@ public class NoteDto {
   private String title;
   private String body;
   private OffsetDateTime endDate;
+  private Boolean isActive;
   private OffsetDateTime creationDate;
   private OffsetDateTime updateDate;
 }
