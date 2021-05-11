@@ -1,3 +1,6 @@
+app:
+  lang: en
+  county: US
 spring:
   liquibase:
     enabled: false
