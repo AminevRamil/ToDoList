@@ -25,6 +25,7 @@
     <div class="card-body">
       <h5 class="card-title">${note.title}</h5>
       <p class="card-text">${note.body}</p>
+      <p class="card-text"><@spring.message 'my-notes.endDate'/> ${note.endDate}</p>
       <a href="/my-notes/resolve?id=${note.id}">Resolve</a>
     </div>
   </div>
