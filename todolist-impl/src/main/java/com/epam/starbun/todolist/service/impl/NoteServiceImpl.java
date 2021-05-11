@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.glasnost.orika.MapperFacade;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -19,8 +18,6 @@ import org.springframework.stereotype.Service;
 public class NoteServiceImpl implements NoteService {
 
   private final NoteRepository noteRepository;
-
-  private final MapperFacade mapperFacade;
 
   @Override
   public NoteEntity save(NoteEntity note) {

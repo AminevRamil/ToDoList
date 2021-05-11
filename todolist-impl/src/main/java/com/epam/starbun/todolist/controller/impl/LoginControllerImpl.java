@@ -34,11 +34,13 @@ public class LoginControllerImpl implements LoginController {
   public String authorize(Model model, AuthRequest authData,
       HttpServletResponse response) {
     UserEntity user = userService.authorizeUser(authData);
-    Cookie authUser = new Cookie("authUser", user.getNickname());
     model.addAttribute("currentUser", user.getNickname());
+
+    Cookie authUser = new Cookie("authUser", user.getNickname());
     authUser.setMaxAge(3600);
     authUser.setPath("/");
     response.addCookie(authUser);
+
     return "main";
   }
 }

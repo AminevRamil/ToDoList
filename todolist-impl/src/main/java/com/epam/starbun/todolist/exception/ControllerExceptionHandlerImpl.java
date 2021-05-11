@@ -1,5 +1,9 @@
 package com.epam.starbun.todolist.exception;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindException;
@@ -7,11 +11,6 @@ import org.springframework.web.bind.MissingRequestCookieException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @ControllerAdvice(basePackages = "com.epam.starbun.todolist.controller")
@@ -43,8 +42,16 @@ public class ControllerExceptionHandlerImpl {
       log.warn("Unauthorized access attempt");
       model.addObject("violations", Collections.singletonList("Вы не авторизованы"));
     } else {
-      log.warn("Exception: ", e);
+      log.warn("Exception:", e);
     }
+    return model;
+  }
+
+  @ExceptionHandler(RuntimeException.class)
+  public ModelAndView handleRuntimeException(RuntimeException e) {
+    log.error("Unexpected exception:", e);
+    ModelAndView model = new ModelAndView("error");
+    model.addObject("error", "Непредвиденная ошибка:\n" + e.getLocalizedMessage());
     return model;
   }
 
