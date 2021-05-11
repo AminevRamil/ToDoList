@@ -1,5 +1,6 @@
 package com.epam.starbun.todolist.domain;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class NoteEntity {
 
     private String title;
     private String body;
-    private OffsetDateTime endDate;
+    private LocalDate endDate;
     private Boolean isActive;
     private OffsetDateTime creationDate;
     private OffsetDateTime updateDate;

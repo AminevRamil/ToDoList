@@ -1,10 +1,12 @@
 package com.epam.starbun.todolist.dto;
 
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class NoteDto {
@@ -17,7 +19,8 @@ public class NoteDto {
 
   private String title;
   private String body;
-  private OffsetDateTime endDate;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate endDate;
   private Boolean isActive;
   private OffsetDateTime creationDate;
   private OffsetDateTime updateDate;

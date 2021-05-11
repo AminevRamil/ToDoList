@@ -39,7 +39,7 @@
             <column name="body" type="varchar">
                 <constraints nullable="false"/>
             </column>
-            <column name="end_date" type="timestamptz">
+            <column name="end_date" type="date">
                 <constraints nullable="true"/>
             </column>
             <column name="creation_date" type="timestamptz" defaultValueDate="current_timestamptz">
