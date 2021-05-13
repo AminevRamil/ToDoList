@@ -1,26 +1,33 @@
 package com.epam.starbun.todolist.service.impl;
 
+import static com.epam.starbun.todolist.util.TestUtils.getDefaultUser;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import com.epam.starbun.todolist.domain.UserEntity;
 import com.epam.starbun.todolist.repository.UserRepository;
-import ma.glasnost.orika.MapperFacade;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@SpringBootTest
+@DataJpaTest
+@RunWith(SpringRunner.class)
 class UserServiceImplTest {
-  @Autowired
-  private UserServiceImpl userService;
 
-  @Autowired
-  private MapperFacade mapperFacade;
+  @InjectMocks
+  private UserServiceImpl userService;
 
   @Mock
   private UserRepository userRepository;
 
   @Test
-  public void success_addUser() {
-
+  void success_addUser() {
+    UserEntity user = getDefaultUser();
+    userService.save(user);
+    verify(userRepository, times(1)).save(any());
   }
-
 }

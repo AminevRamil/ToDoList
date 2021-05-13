@@ -16,6 +16,27 @@
             <scope>compile</scope>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <groupId>org.springframework.boot</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>h2</artifactId>
+            <groupId>com.h2database</groupId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <artifactId>junit</artifactId>
+            <groupId>junit</groupId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <artifactId>junit</artifactId>
+            <groupId>junit</groupId>
+            <scope>test</scope>
+            <version>4.12</version>
+        </dependency>
+
     </dependencies>
     <modelVersion>4.0.0</modelVersion>
 
@@ -24,6 +45,5 @@
         <groupId>com.epam.starbun</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-
 
 </project>
