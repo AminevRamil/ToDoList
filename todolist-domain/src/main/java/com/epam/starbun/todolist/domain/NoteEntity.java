@@ -1,20 +1,13 @@
 package com.epam.starbun.todolist.domain;
 
+import lombok.Data;
+import lombok.ToString.Exclude;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import lombok.Data;
 
 @Data
 @Entity
@@ -25,10 +18,7 @@ public class NoteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = AttachmentEntity.class)
-    @JoinColumn(name = "note_id")
-    private List<AttachmentEntity> attachmentList;
-
+    @Exclude
     @ManyToMany(targetEntity = UserEntity.class)
     @JoinTable(name = "users_note",
         joinColumns = @JoinColumn(name = "note_id", referencedColumnName = "id"),
@@ -39,6 +29,7 @@ public class NoteEntity {
     private String body;
     private LocalDate endDate;
     private Boolean isActive;
+    private Boolean isNotified;
     private OffsetDateTime creationDate;
     private OffsetDateTime updateDate;
 }

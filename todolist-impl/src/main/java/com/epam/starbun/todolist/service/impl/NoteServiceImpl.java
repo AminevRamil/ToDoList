@@ -5,12 +5,13 @@ import com.epam.starbun.todolist.domain.UserEntity;
 import com.epam.starbun.todolist.exception.RequestException;
 import com.epam.starbun.todolist.repository.NoteRepository;
 import com.epam.starbun.todolist.service.NoteService;
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -29,15 +30,20 @@ public class NoteServiceImpl implements NoteService {
   @Override
   public List<NoteEntity> getActiveNotesOfUser(UserEntity user) {
     return noteRepository.findByUserId(user.getId()).stream()
-        .filter(NoteEntity::getIsActive)
-        .collect(Collectors.toList());
+      .filter(NoteEntity::getIsActive)
+      .collect(Collectors.toList());
   }
 
   @Override
   public void deactivate(Long id) {
     NoteEntity noteEntity = noteRepository.findById(id)
-        .orElseThrow(() -> new RequestException("Не сущуствует заметки с id=" + id));
+      .orElseThrow(() -> new RequestException("Не сущуствует заметки с id=" + id));
     noteEntity.setIsActive(false);
     noteRepository.saveAndFlush(noteEntity);
+  }
+
+  @Override
+  public List<NoteEntity> getAllNotNotifiedNotes() {
+    return noteRepository.findAllNotNotifiedNotes();
   }
 }

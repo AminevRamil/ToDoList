@@ -66,6 +66,15 @@
             <groupId>org.springframework.boot</groupId>
         </dependency>
         <dependency>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <dependency>
             <artifactId>liquibase-core</artifactId>
             <groupId>org.liquibase</groupId>
         </dependency>
@@ -80,30 +89,48 @@
             <groupId>org.projectlombok</groupId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <groupId>org.springframework.boot</groupId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <configuration>
-                        <excludes>
-                            <exclude>
-                                <artifactId>lombok</artifactId>
-                                <groupId>org.projectlombok</groupId>
-                            </exclude>
-                        </excludes>
-                    </configuration>
-                    <groupId>org.springframework.boot</groupId>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.springframework.boot</groupId>
+                <configuration>
+                    <mainClass>com.epam.starbun.todolist.ToDoListApplication</mainClass>
+                    <layout>JAR</layout>
+                    <excludes>
+                        <exclude>
+                            <artifactId>lombok</artifactId>
+                            <groupId>org.projectlombok</groupId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>com.epam.starbun.todolist.ToDoListApplication</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>assemble-all</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
     <profiles>
@@ -126,26 +153,6 @@
                         <groupId>org.liquibase</groupId>
                         <version>${liquibase.version}</version>
                     </plugin>
-                    <plugin>
-                        <artifactId>liquibase-maven-plugin</artifactId>
-                        <dependencies>
-                            <dependency>
-                                <artifactId>postgresql</artifactId>
-                                <groupId>org.postgresql</groupId>
-                                <version>42.2.14</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>update</goal>
-                                </goals>
-                                <phase>process-resources</phase>
-                            </execution>
-                        </executions>
-                        <groupId>org.liquibase</groupId>
-                        <version>3.8.9</version>
-                    </plugin>
                 </plugins>
             </build>
             <id>liquibase</id>
@@ -153,9 +160,10 @@
     </profiles>
 
     <properties>
+        <start-class>com.epam.starbun.todolist.ToDoListApplication</start-class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>11</java.version>
+        <java.version>8</java.version>
 
         <liquibase.changelogfile>todolist-db/db-changelogs/db.changelog-master.xml</liquibase.changelogfile>
         <liquibase.db>todolist</liquibase.db>

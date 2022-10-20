@@ -12,4 +12,7 @@ public interface NoteRepository extends JpaRepository<NoteEntity, Long> {
 
   @Query("SELECT ne FROM UserEntity ue JOIN ue.noteList ne ON ue.id = :id")
   List<NoteEntity> findByUserId(Long id);
+
+  @Query("FROM NoteEntity WHERE isNotified = false")
+  List<NoteEntity> findAllNotNotifiedNotes();
 }

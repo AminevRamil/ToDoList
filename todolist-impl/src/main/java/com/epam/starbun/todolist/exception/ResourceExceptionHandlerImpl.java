@@ -6,12 +6,11 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-// TODO Попробовать с исключениями наследованными не от Exception, а от RuntimeException
 @Slf4j
-@ControllerAdvice(basePackages = "com.epam.starbun.todolist.resource")
+@RestControllerAdvice(basePackages = "com.epam.starbun.todolist.resource")
 public class ResourceExceptionHandlerImpl {
 
   @ExceptionHandler(RequestException.class)
@@ -35,13 +34,11 @@ public class ResourceExceptionHandlerImpl {
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
   }
 
-  // TODO Проверить
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<RequestResponse> handleException(Exception e) {
+  @ExceptionHandler(RuntimeException.class)
+  public ResponseEntity<RequestResponse> handleRuntimeException(RuntimeException e) {
     log.error("Unexpected exception: ", e);
     RequestResponse errorResponse = new RequestResponse();
     errorResponse.setStatus("Ошибка");
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
   }
-
 }

@@ -1,7 +1,7 @@
 package com.epam.starbun.todolist.domain;
 
 import lombok.Data;
-import lombok.ToString;
+import lombok.ToString.Exclude;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
@@ -10,13 +10,13 @@ import java.util.List;
 
 @Data
 @Entity
-@ToString
 @Table(name = "users")
 public class UserEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Exclude
   @ManyToMany(targetEntity = NoteEntity.class)
   @JoinTable(name = "users_note",
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

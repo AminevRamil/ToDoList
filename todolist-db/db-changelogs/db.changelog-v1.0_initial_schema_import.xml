@@ -51,6 +51,7 @@
         </createTable>
     </changeSet>
 
+    <!--
     <changeSet id="create-attachment-table-08-02-2021" author="Aminev Ramil">
         <createTable tableName="attachment" schemaName="public">
             <column name="id" type="bigint" autoIncrement="true">
@@ -76,6 +77,7 @@
             </column>
         </createTable>
     </changeSet>
+    -->
 
     <changeSet author="Aminev Ramil" id="create-users-note-table-08-02-2021">
         <createTable tableName="users_note">
@@ -92,11 +94,13 @@
     </changeSet>
 
     <changeSet id="setup-foreign-keys-08-02-2021" author="Aminev Ramil">
+        <!--
         <addForeignKeyConstraint baseColumnNames="note_id"
                                  baseTableName="attachment"
                                  constraintName="attachment_order_id_fkey"
                                  referencedColumnNames="id"
                                  referencedTableName="attachment"/>
+        -->
         <addForeignKeyConstraint baseColumnNames="note_id"
             baseTableName="users_note"
             constraintName="users_note_note_id_fkey"

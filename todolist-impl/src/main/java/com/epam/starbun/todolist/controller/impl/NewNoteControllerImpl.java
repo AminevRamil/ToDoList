@@ -6,13 +6,14 @@ import com.epam.starbun.todolist.domain.UserEntity;
 import com.epam.starbun.todolist.dto.NoteDto;
 import com.epam.starbun.todolist.service.NoteService;
 import com.epam.starbun.todolist.service.UserService;
-import java.util.List;
-import javax.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+
+import javax.servlet.http.Cookie;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,12 +26,12 @@ public class NewNoteControllerImpl implements NewNoteController {
   private final MapperFacade mapperFacade;
 
   @Override
-  public String saveNote(Model model, NoteDto note,
-      @CookieValue(name = "authUser") Cookie authUser) {
+  public String saveNote(Model model, NoteDto note, @CookieValue(name = "authUser") Cookie authUser) {
 
     UserEntity user = userService.findByNickname(authUser.getValue());
     NoteEntity noteEntity = mapperFacade.map(note, NoteEntity.class);
     noteEntity.getUserEntityList().add(user);
+    noteEntity.setIsNotified(false);
     noteService.save(noteEntity);
 
     model.addAttribute("currentUser", user.getNickname());
